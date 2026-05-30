@@ -1,0 +1,283 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+
+/* ============================================================
+   MEC EVENT PORTAL — BOLD NEO-BRUTALIST DESIGN SYSTEM v2
+   Fonts: Space Grotesk (display) + Plus Jakarta Sans (body)
+   ============================================================ */
+
+:root {
+  --font-display: 'Space Grotesk', -apple-system, sans-serif;
+  --font-body:    'Plus Jakarta Sans', -apple-system, sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  /* ── Core Palette ── */
+  --bg:           #F7F7F4;
+  --bg-card:      #FFFFFF;
+  --bg-dark:      #0F0F0F;
+  --bg-dark-2:    #1A1A1A;
+
+  /* ── Text ── */
+  --text:         #111111;
+  --text-sub:     #555555;
+  --text-light:   #F5F5F5;
+  --text-muted:   #888888;
+
+  /* ── Borders & Shadows ── */
+  --border:       #111111;
+  --border-w:     2.5px;
+  --shadow-xs:    2px 2px 0 #111111;
+  --shadow-sm:    4px 4px 0 #111111;
+  --shadow-md:    6px 6px 0 #111111;
+  --shadow-lg:    10px 10px 0 #111111;
+
+  /* ── Category Tag Colors (muted, sophisticated) ── */
+  --tag-tech:             #FEF08A;
+  --tag-coding:           #BAE6FD;
+  --tag-electronics:      #FBCFE8;
+  --tag-quizzing:         #DDD6FE;
+  --tag-entrepreneurship: #BBF7D0;
+  --tag-arts:             #FED7AA;
+  --tag-robotics:         #FED7AA;
+
+  /* ── Accent ── */
+  --accent:       #111111;
+  --accent-pop:   #F5C518;
+}
+
+/* ============================================================
+   RESET
+   ============================================================ */
+*, *::before, *::after {
+  margin: 0; padding: 0;
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--text);
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border: 2px solid var(--bg);
+  border-radius: 4px;
+}
+::selection {
+  background: var(--accent-pop);
+  color: var(--text);
+}
+
+/* ============================================================
+   CARD — Core component
+   ============================================================ */
+.card {
+  background: var(--bg-card);
+  border: var(--border-w) solid var(--border);
+  border-radius: 4px;
+  box-shadow: var(--shadow-md);
+  transition:
+    transform 0.16s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.16s ease;
+}
+
+.card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ============================================================
+   BENTO GRID — 12 column
+   ============================================================ */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
+  width: 100%;
+  align-items: start;
+}
+
+.bento-card-small  { grid-column: span 4; }
+.bento-card-medium { grid-column: span 6; }
+.bento-card-large  { grid-column: span 8; }
+
+@media (max-width: 1024px) {
+  .bento-card-small  { grid-column: span 6; }
+  .bento-card-medium { grid-column: span 12; }
+}
+
+@media (max-width: 640px) {
+  .bento-grid       { gap: 14px; }
+  .bento-card-small { grid-column: span 12; }
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  padding: 10px 20px;
+  border: var(--border-w) solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn:hover  { transform: translate(-2px, -2px); box-shadow: var(--shadow-md); }
+.btn:active { transform: translate(1px, 1px);   box-shadow: var(--shadow-xs); }
+
+.btn-dark   { background: var(--text); color: #FFF; }
+.btn-white  { background: var(--bg-card); color: var(--text); }
+.btn-yellow { background: var(--accent-pop); color: var(--text); }
+.btn-ghost  {
+  background: transparent;
+  color: var(--text);
+  box-shadow: none;
+}
+.btn-ghost:hover { background: rgba(17,17,17,0.05); box-shadow: none; transform: none; }
+
+/* ============================================================
+   INPUT / SELECT
+   ============================================================ */
+.field {
+  width: 100%;
+  padding: 11px 14px 11px 40px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  background: var(--bg);
+  border: var(--border-w) solid var(--border);
+  border-radius: 4px;
+  outline: none;
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.field:focus {
+  background: var(--bg-card);
+  box-shadow: var(--shadow-sm);
+}
+
+.field::placeholder { color: var(--text-muted); font-weight: 400; }
+
+/* ============================================================
+   TAG PILL
+   ============================================================ */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border: 1.5px solid var(--border);
+  border-radius: 3px;
+  color: var(--text);
+}
+
+/* ============================================================
+   SECTION LABEL
+   ============================================================ */
+.section-eyebrow {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   MARQUEE TICKER
+   ============================================================ */
+.ticker-wrap {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  background: var(--accent-pop);
+  border-top:    var(--border-w) solid var(--border);
+  border-bottom: var(--border-w) solid var(--border);
+  padding: 10px 0;
+}
+
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.ticker-inner {
+  display: inline-flex;
+  animation: marquee 32s linear infinite;
+  will-change: transform;
+}
+
+.ticker-wrap:hover .ticker-inner { animation-play-state: paused; }
+
+.ticker-item {
+  display: inline-block;
+  padding: 0 36px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.ticker-dot {
+  color: #EF4444;
+  margin-right: 10px;
+  font-size: 8px;
+  vertical-align: middle;
+}
+
+/* ============================================================
+   STAT CARD
+   ============================================================ */
+.stat-card {
+  background: var(--bg-card);
+  border: var(--border-w) solid var(--border);
+  border-radius: 4px;
+  box-shadow: var(--shadow-md);
+  padding: 28px;
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-up { animation: fade-up 0.4s ease forwards; }
