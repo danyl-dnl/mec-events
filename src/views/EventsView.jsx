@@ -50,6 +50,17 @@ export default function EventsView({
     'Third Eye': 'thirdeye',
   };
 
+  const formatTime12Hour = (time24) => {
+    if (!time24) return '';
+    const [hoursStr, minutesStr] = time24.split(':');
+    let hours = parseInt(hoursStr, 10);
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+    const hoursFormatted = hours < 10 ? `0${hours}` : hours;
+    return `${hoursFormatted}:${minutesStr} ${ampm}`;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!title || !date || !time || !venue || !price || !description) {
@@ -58,6 +69,7 @@ export default function EventsView({
     }
 
     const hostClubId = CLUB_MAP[clubName] || 'ieee';
+    const formattedTime = formatTime12Hour(time);
 
     const newEvent = {
       id: `custom-evt-${Math.random().toString(36).substr(2, 9)}`,
@@ -65,7 +77,7 @@ export default function EventsView({
       clubId: hostClubId,
       clubName,
       date,
-      time,
+      time: formattedTime,
       venue,
       category: formCategory,
       description,
@@ -131,7 +143,7 @@ export default function EventsView({
         </div>
       )}
 
-      {/* ⚡ Create New Event Collapsible Panel (Only visible to Admins) */}
+      {/* Create New Event Collapsible Panel (Only visible to Admins) */}
       {isAdmin && (
         <div style={{
           background: 'var(--bg-card)',
@@ -301,14 +313,13 @@ export default function EventsView({
                       Start Time *
                     </label>
                     <input
-                      type="text"
+                      type="time"
                       required
-                      placeholder="e.g. 10:00 AM or 02:30 PM"
                       value={time}
                       onChange={e => setTime(e.target.value)}
                       style={{
-                        ...B, padding: '10px 12px', fontSize: '13px', background: 'var(--bg)',
-                        border: '2px solid var(--border)', borderRadius: '4px', color: 'var(--text)', outline: 'none'
+                        ...D, padding: '9px 12px', fontSize: '13px', background: 'var(--bg)',
+                        border: '2px solid var(--border)', borderRadius: '4px', color: 'var(--text)', outline: 'none', cursor: 'pointer'
                       }}
                     />
                   </div>

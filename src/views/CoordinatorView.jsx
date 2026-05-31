@@ -223,6 +223,17 @@ export default function CoordinatorView({ setView, pageAnim, eventsList, onAddEv
     'Third Eye': 'thirdeye',
   };
 
+  const formatTime12Hour = (time24) => {
+    if (!time24) return '';
+    const [hoursStr, minutesStr] = time24.split(':');
+    let hours = parseInt(hoursStr, 10);
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+    const hoursFormatted = hours < 10 ? `0${hours}` : hours;
+    return `${hoursFormatted}:${minutesStr} ${ampm}`;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!title || !date || !time || !venue || !price || !description) {
@@ -231,6 +242,7 @@ export default function CoordinatorView({ setView, pageAnim, eventsList, onAddEv
     }
 
     const hostClubId = CLUB_MAP[clubName] || 'ieee';
+    const formattedTime = formatTime12Hour(time);
 
     const newEvent = {
       id: `custom-evt-${Math.random().toString(36).substr(2, 9)}`,
@@ -238,7 +250,7 @@ export default function CoordinatorView({ setView, pageAnim, eventsList, onAddEv
       clubId: hostClubId,
       clubName,
       date,
-      time,
+      time: formattedTime,
       venue,
       category,
       description,
@@ -656,7 +668,7 @@ export default function CoordinatorView({ setView, pageAnim, eventsList, onAddEv
         </div>
       )}
 
-      {/* ⚡ Create New Event Collapsible Panel */}
+      {/* Create New Event Collapsible Panel */}
       <div style={{
         background: 'var(--bg-card)',
         border: '2.5px solid var(--border)',
@@ -824,14 +836,13 @@ export default function CoordinatorView({ setView, pageAnim, eventsList, onAddEv
                     Start Time *
                   </label>
                   <input
-                    type="text"
+                    type="time"
                     required
-                    placeholder="e.g. 10:00 AM or 02:30 PM"
                     value={time}
                     onChange={e => setTime(e.target.value)}
                     style={{
-                      ...B, padding: '10px 12px', fontSize: '13px', background: 'var(--bg)',
-                      border: '2px solid var(--border)', borderRadius: '4px', color: 'var(--text)', outline: 'none'
+                      ...D, padding: '9px 12px', fontSize: '13px', background: 'var(--bg)',
+                      border: '2px solid var(--border)', borderRadius: '4px', color: 'var(--text)', outline: 'none', cursor: 'pointer'
                     }}
                   />
                 </div>
