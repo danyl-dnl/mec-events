@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Menu, X, Globe, Ticket as TicketIcon, LayoutGrid, Zap, User as UserIcon, LogOut, Settings } from 'lucide-react';
+import { Menu, X, Globe, Ticket as TicketIcon, LayoutGrid, Zap, User as UserIcon, LogOut, Settings, Sun, Moon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
 
@@ -122,6 +122,26 @@ export default function Header({ currentView, setCurrentView, theme, toggleTheme
 
         {/* ── DESKTOP ACTIONS ── */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }} className="hide-on-mobile">
+          <button
+            onClick={toggleTheme}
+            title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              width: '36px', height: '36px',
+              background: 'transparent',
+              border: '2.5px solid #333',
+              borderRadius: '6px',
+              cursor: 'pointer',
+              color: '#FFFFFF',
+              transition: 'all 0.12s ease',
+              flexShrink: 0,
+            }}
+            onMouseEnter={e => { e.currentTarget.style.background = '#222'; e.currentTarget.style.borderColor = '#444'; }}
+            onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = '#333'; }}
+          >
+            {theme === 'dark' ? <Sun size={15} color="#F5C518" strokeWidth={2.5} /> : <Moon size={15} strokeWidth={2.5} />}
+          </button>
+
           <a
             href="https://www.mec.ac.in"
             target="_blank"
@@ -373,6 +393,28 @@ export default function Header({ currentView, setCurrentView, theme, toggleTheme
                   Edit Profile
                 </button>
               )}
+
+              <button
+                onClick={toggleTheme}
+                style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+                  padding: '12px', marginTop: '8px',
+                  ...D, fontSize: '13px', fontWeight: 600,
+                  color: '#CCCCCC', background: 'transparent',
+                  border: '1.5px dashed #333', borderRadius: '6px', cursor: 'pointer',
+                  width: '100%',
+                }}
+              >
+                {theme === 'dark' ? (
+                  <>
+                    <Sun size={14} color="#F5C518" strokeWidth={2.5} /> Light Theme
+                  </>
+                ) : (
+                  <>
+                    <Moon size={14} color="#888" strokeWidth={2.5} /> Dark Theme
+                  </>
+                )}
+              </button>
 
               <a
                 href="https://www.mec.ac.in"

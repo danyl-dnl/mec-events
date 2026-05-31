@@ -40,14 +40,14 @@ export default function EventCard({ event, onRegister, isRegistered }) {
         position: 'relative',
         display: 'flex',
         flexDirection: 'column',
-        background: '#FFFFFF',
-        border: '2.5px solid #111',
+        background: 'var(--bg-card)',
+        border: '2.5px solid var(--border)',
         borderRadius: '4px',
         padding: '24px',
         minHeight: '360px',
         overflow: 'hidden',
         transform: hovered ? 'translate(-3px, -3px)' : 'none',
-        boxShadow: hovered ? '9px 9px 0 #111' : '5px 5px 0 #111',
+        boxShadow: hovered ? '9px 9px 0 var(--border)' : '5px 5px 0 var(--border)',
         transition: 'transform 0.16s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.16s ease',
       }}
     >
@@ -73,7 +73,7 @@ export default function EventCard({ event, onRegister, isRegistered }) {
           letterSpacing: '0.07em', textTransform: 'uppercase',
           padding: '4px 10px',
           background: catColor(event.category),
-          border: '1.5px solid #111',
+          border: '1.5px solid var(--border)',
           borderRadius: '3px',
           color: '#111',
         }}>
@@ -88,8 +88,8 @@ export default function EventCard({ event, onRegister, isRegistered }) {
             fontSize: '10px', fontWeight: 700,
             letterSpacing: '0.07em', textTransform: 'uppercase',
             padding: '4px 10px',
-            background: '#0F0F0F', color: '#F5C518',
-            border: '1.5px solid #111',
+            background: 'var(--text)', color: 'var(--text-light)',
+            border: '1.5px solid var(--border)',
             borderRadius: '3px',
           }}>
             <Sparkles size={9} />
@@ -104,7 +104,7 @@ export default function EventCard({ event, onRegister, isRegistered }) {
         fontSize: event.title.length > 22 ? '18px' : '21px',
         fontWeight: 700,
         lineHeight: 1.15,
-        color: '#111',
+        color: 'var(--text)',
         marginBottom: '6px',
         letterSpacing: '-0.01em',
       }}>
@@ -116,7 +116,7 @@ export default function EventCard({ event, onRegister, isRegistered }) {
         ...B,
         fontSize: '12px',
         fontWeight: 600,
-        color: '#888',
+        color: 'var(--text-muted)',
         marginBottom: '12px',
         textTransform: 'uppercase',
         letterSpacing: '0.04em',
@@ -129,7 +129,7 @@ export default function EventCard({ event, onRegister, isRegistered }) {
         ...B,
         fontSize: '14px',
         fontWeight: 400,
-        color: '#444',
+        color: 'var(--text-sub)',
         lineHeight: 1.65,
         flex: 1,
         display: '-webkit-box',
@@ -142,24 +142,24 @@ export default function EventCard({ event, onRegister, isRegistered }) {
 
       {/* ── FOOTER ── */}
       <div style={{
-        borderTop: '1.5px solid #EBEBEB',
+        borderTop: '1.5px solid var(--border)',
         marginTop: '18px',
         paddingTop: '16px',
       }}>
         {/* Date / Time / Venue */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginBottom: '14px' }}>
           <div style={{ display: 'flex', gap: '16px' }}>
-            <span style={{ ...B, display: 'flex', alignItems: 'center', gap: '5px', fontSize: '12px', fontWeight: 500, color: '#555' }}>
-              <Calendar size={12} color="#999" strokeWidth={2} />
+            <span style={{ ...B, display: 'flex', alignItems: 'center', gap: '5px', fontSize: '12px', fontWeight: 500, color: 'var(--text-sub)' }}>
+              <Calendar size={12} color="var(--text-muted)" strokeWidth={2} />
               {fmtDate(event.date)}
             </span>
-            <span style={{ ...B, display: 'flex', alignItems: 'center', gap: '5px', fontSize: '12px', fontWeight: 500, color: '#555' }}>
-              <Clock size={12} color="#999" strokeWidth={2} />
+            <span style={{ ...B, display: 'flex', alignItems: 'center', gap: '5px', fontSize: '12px', fontWeight: 500, color: 'var(--text-sub)' }}>
+              <Clock size={12} color="var(--text-muted)" strokeWidth={2} />
               {event.time}
             </span>
           </div>
-          <span style={{ ...B, display: 'flex', alignItems: 'center', gap: '5px', fontSize: '12px', fontWeight: 500, color: '#555' }}>
-            <MapPin size={12} color="#999" strokeWidth={2} />
+          <span style={{ ...B, display: 'flex', alignItems: 'center', gap: '5px', fontSize: '12px', fontWeight: 500, color: 'var(--text-sub)' }}>
+            <MapPin size={12} color="var(--text-muted)" strokeWidth={2} />
             <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
               {event.venue}
             </span>
@@ -173,7 +173,7 @@ export default function EventCard({ event, onRegister, isRegistered }) {
             fontSize: '16px', fontWeight: 700,
             padding: '4px 12px',
             background: event.price === 'Free' ? '#BBF7D0' : '#FEF08A',
-            border: '2px solid #111',
+            border: '2px solid var(--border)',
             borderRadius: '4px',
             color: '#111',
           }}>
@@ -186,7 +186,7 @@ export default function EventCard({ event, onRegister, isRegistered }) {
               display: 'flex', alignItems: 'center', gap: '5px',
               fontSize: '12px', fontWeight: 700,
               padding: '9px 16px',
-              background: '#F0FDF4',
+              background: 'var(--bg-card)',
               border: '2px solid #86EFAC',
               borderRadius: '4px',
               color: '#166534',
@@ -202,16 +202,16 @@ export default function EventCard({ event, onRegister, isRegistered }) {
                 ...D,
                 fontSize: '12px', fontWeight: 700,
                 padding: '9px 20px',
-                background: '#111',
-                color: '#FFF',
-                border: '2px solid #111',
+                background: 'var(--text)',
+                color: 'var(--text-light)',
+                border: '2px solid var(--border)',
                 borderRadius: '4px',
                 cursor: 'pointer',
                 transition: 'background 0.12s ease',
                 letterSpacing: '0.01em',
               }}
-              onMouseEnter={e => e.currentTarget.style.background = '#333'}
-              onMouseLeave={e => e.currentTarget.style.background = '#111'}
+              onMouseEnter={e => e.currentTarget.style.opacity = '0.9'}
+              onMouseLeave={e => e.currentTarget.style.opacity = '1'}
             >
               Register →
             </button>

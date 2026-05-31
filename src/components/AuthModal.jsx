@@ -5,31 +5,31 @@ import { useAuth } from '../context/AuthContext';
 
 const D = { fontFamily: "'Space Grotesk', sans-serif" };
 const B = { fontFamily: "'Plus Jakarta Sans', sans-serif" };
-const border = '2.5px solid #111';
+const border = '2.5px solid var(--border)';
 
 const inputStyle = (focused, error) => ({
   width: '100%',
   padding: '11px 14px 11px 38px',
   ...B, fontSize: '14px', fontWeight: 500,
-  color: '#111',
-  background: focused ? '#FFFFF8' : '#FAFAF8',
+  color: 'var(--text)',
+  background: focused ? 'var(--bg-card)' : 'var(--bg)',
   border: error ? '2px solid #EF4444' : border,
   borderRadius: '4px',
   outline: 'none',
   transition: 'all 0.12s ease',
-  boxShadow: focused ? '3px 3px 0 #111' : 'none',
+  boxShadow: focused ? '3px 3px 0 var(--border)' : 'none',
 });
 
 const labelStyle = {
   ...D, fontSize: '11px', fontWeight: 700,
   textTransform: 'uppercase', letterSpacing: '0.08em',
-  color: '#333', display: 'block', marginBottom: '6px',
+  color: 'var(--text)', display: 'block', marginBottom: '6px',
 };
 
 const iconStyle = {
   position: 'absolute', left: '12px', top: '50%',
   transform: 'translateY(-50%)',
-  color: '#888', pointerEvents: 'none',
+  color: 'var(--text-muted)', pointerEvents: 'none',
 };
 
 export default function AuthModal({ isOpen, onClose }) {
@@ -122,16 +122,16 @@ export default function AuthModal({ isOpen, onClose }) {
           style={{
             position: 'relative', zIndex: 10,
             width: '100%', maxWidth: '420px',
-            background: '#FFF',
-            border: '2.5px solid #111',
+            background: 'var(--bg-card)',
+            border: border,
             borderRadius: '6px',
-            boxShadow: '10px 10px 0 #111',
+            boxShadow: '10px 10px 0 var(--border)',
             padding: '32px',
             maxHeight: '92vh', overflowY: 'auto',
           }}
         >
           {/* Accent strip */}
-          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: '#F5C518', borderRadius: '6px 6px 0 0' }} />
+          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: 'var(--accent-pop)', borderRadius: '6px 6px 0 0' }} />
 
           {/* Close button */}
           <button
@@ -141,23 +141,23 @@ export default function AuthModal({ isOpen, onClose }) {
               position: 'absolute', top: '16px', right: '16px',
               width: '32px', height: '32px',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              background: '#F5F5F3',
-              border: '2px solid #E5E5E5',
+              background: 'var(--hover-ghost)',
+              border: '2px solid var(--border)',
               borderRadius: '6px', cursor: 'pointer',
-              color: '#555',
+              color: 'var(--text-sub)',
             }}
-            onMouseEnter={e => { e.currentTarget.style.background = '#111'; e.currentTarget.style.color = '#FFF'; }}
-            onMouseLeave={e => { e.currentTarget.style.background = '#F5F5F3'; e.currentTarget.style.color = '#555'; }}
+            onMouseEnter={e => { e.currentTarget.style.background = 'var(--text)'; e.currentTarget.style.color = 'var(--text-light)'; }}
+            onMouseLeave={e => { e.currentTarget.style.background = 'var(--hover-ghost)'; e.currentTarget.style.color = 'var(--text-sub)'; }}
           >
             <X size={15} />
           </button>
 
           {/* Title */}
           <div style={{ marginBottom: '24px', marginTop: '8px' }}>
-            <h2 style={{ ...D, fontSize: '24px', fontWeight: 700, color: '#111', letterSpacing: '-0.02em', marginBottom: '6px' }}>
+            <h2 style={{ ...D, fontSize: '24px', fontWeight: 700, color: 'var(--text)', letterSpacing: '-0.02em', marginBottom: '6px' }}>
               Welcome to MEC Events
             </h2>
-            <p style={{ ...B, fontSize: '13px', color: '#666' }}>
+            <p style={{ ...B, fontSize: '13px', color: 'var(--text-sub)' }}>
               Sign in to manage registrations and passes.
             </p>
           </div>
@@ -180,7 +180,7 @@ export default function AuthModal({ isOpen, onClose }) {
           {/* Tabs */}
           <div style={{
             display: 'grid', gridTemplateColumns: '1fr 1fr',
-            background: '#F5F5F3', border: border, borderRadius: '4px',
+            background: 'var(--bg)', border: border, borderRadius: '4px',
             padding: '4px', marginBottom: '20px',
           }}>
             <button
@@ -188,8 +188,8 @@ export default function AuthModal({ isOpen, onClose }) {
               style={{
                 padding: '8px 0', border: 'none', borderRadius: '3px',
                 cursor: 'pointer', ...D, fontSize: '13px', fontWeight: 700,
-                background: tab === 'login' ? '#111' : 'transparent',
-                color: tab === 'login' ? '#FFF' : '#666',
+                background: tab === 'login' ? 'var(--text)' : 'transparent',
+                color: tab === 'login' ? 'var(--text-light)' : 'var(--text-sub)',
                 transition: 'all 0.12s ease',
               }}
             >
@@ -200,8 +200,8 @@ export default function AuthModal({ isOpen, onClose }) {
               style={{
                 padding: '8px 0', border: 'none', borderRadius: '3px',
                 cursor: 'pointer', ...D, fontSize: '13px', fontWeight: 700,
-                background: tab === 'signup' ? '#111' : 'transparent',
-                color: tab === 'signup' ? '#FFF' : '#666',
+                background: tab === 'signup' ? 'var(--text)' : 'transparent',
+                color: tab === 'signup' ? 'var(--text-light)' : 'var(--text-sub)',
                 transition: 'all 0.12s ease',
               }}
             >
@@ -216,17 +216,17 @@ export default function AuthModal({ isOpen, onClose }) {
               width: '100%',
               display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
               padding: '12px',
-              background: '#FFF',
+              background: 'var(--bg-card)',
               border: border,
               borderRadius: '4px',
-              boxShadow: '4px 4px 0 #111',
+              boxShadow: '4px 4px 0 var(--border)',
               cursor: 'pointer',
-              ...D, fontSize: '14px', fontWeight: 700, color: '#111',
+              ...D, fontSize: '14px', fontWeight: 700, color: 'var(--text)',
               marginBottom: '20px',
               transition: 'transform 0.08s ease, box-shadow 0.08s ease',
             }}
-            onMouseEnter={e => { e.currentTarget.style.transform = 'translate(-2px,-2px)'; e.currentTarget.style.boxShadow = '6px 6px 0 #111'; }}
-            onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '4px 4px 0 #111'; }}
+            onMouseEnter={e => { e.currentTarget.style.transform = 'translate(-2px,-2px)'; e.currentTarget.style.boxShadow = '6px 6px 0 var(--border)'; }}
+            onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '4px 4px 0 var(--border)'; }}
           >
             {/* Google Icon SVG */}
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>

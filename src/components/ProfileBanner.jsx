@@ -14,9 +14,9 @@ export default function ProfileBanner({ onOpenProfile }) {
   return (
     <div style={{
       background: '#FEF08A',
-      border: '2.5px solid #111',
+      border: '2.5px solid var(--border)',
       borderRadius: '6px',
-      boxShadow: '4px 4px 0 #111',
+      boxShadow: '4px 4px 0 var(--border)',
       padding: '12px 20px',
       marginBottom: '32px',
       display: 'flex',
@@ -45,15 +45,15 @@ export default function ProfileBanner({ onOpenProfile }) {
         style={{
           ...D, fontSize: '12px', fontWeight: 700,
           padding: '8px 16px',
-          background: '#111', color: '#FFF',
-          border: 'none', borderRadius: '4px',
+          background: 'var(--text)', color: 'var(--text-light)',
+          border: '2px solid var(--border)', borderRadius: '4px',
           cursor: 'pointer',
           display: 'flex', alignItems: 'center', gap: '6px',
           transition: 'all 0.12s ease',
           boxShadow: '2px 2px 0 rgba(0,0,0,0.15)',
         }}
-        onMouseEnter={e => { e.currentTarget.style.background = '#333'; e.currentTarget.style.transform = 'translateY(-1px)'; }}
-        onMouseLeave={e => { e.currentTarget.style.background = '#111'; e.currentTarget.style.transform = 'none'; }}
+        onMouseEnter={e => { e.currentTarget.style.opacity = '0.9'; e.currentTarget.style.transform = 'translateY(-1px)'; }}
+        onMouseLeave={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.transform = 'none'; }}
       >
         Complete Profile
         <ArrowRight size={13} strokeWidth={2.5} />

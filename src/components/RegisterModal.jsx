@@ -5,31 +5,31 @@ import { useAuth } from '../context/AuthContext';
 
 const D = { fontFamily: "'Space Grotesk', sans-serif" };
 const B = { fontFamily: "'Plus Jakarta Sans', sans-serif" };
-const border = '2.5px solid #111';
+const border = '2.5px solid var(--border)';
 
 const inputStyle = (focused, error) => ({
   width: '100%',
   padding: '11px 14px 11px 38px',
   ...B, fontSize: '14px', fontWeight: 500,
-  color: '#111',
-  background: focused ? '#FFFFF8' : '#FAFAF8',
+  color: 'var(--text)',
+  background: focused ? 'var(--bg-card)' : 'var(--bg)',
   border: error ? '2px solid #EF4444' : border,
   borderRadius: '4px',
   outline: 'none',
   transition: 'all 0.12s ease',
-  boxShadow: focused ? '3px 3px 0 #111' : 'none',
+  boxShadow: focused ? '3px 3px 0 var(--border)' : 'none',
 });
 
 const labelStyle = {
   ...D, fontSize: '11px', fontWeight: 700,
   textTransform: 'uppercase', letterSpacing: '0.08em',
-  color: '#333', display: 'block', marginBottom: '6px',
+  color: 'var(--text)', display: 'block', marginBottom: '6px',
 };
 
 const iconStyle = {
   position: 'absolute', left: '12px', top: '50%',
   transform: 'translateY(-50%)',
-  color: '#888', pointerEvents: 'none',
+  color: 'var(--text-muted)', pointerEvents: 'none',
 };
 
 export default function RegisterModal({ isOpen, onClose, event, onSuccess, onOpenAuth }) {
@@ -147,16 +147,16 @@ export default function RegisterModal({ isOpen, onClose, event, onSuccess, onOpe
           style={{
             position: 'relative', zIndex: 10,
             width: '100%', maxWidth: '480px',
-            background: '#FFF',
+            background: 'var(--bg-card)',
             border: border,
             borderRadius: '6px',
-            boxShadow: '10px 10px 0 #111',
+            boxShadow: '10px 10px 0 var(--border)',
             padding: '32px',
             maxHeight: '92vh', overflowY: 'auto',
           }}
         >
           {/* Top accent line */}
-          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: '#111', borderRadius: '6px 6px 0 0' }} />
+          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: 'var(--border)', borderRadius: '6px 6px 0 0' }} />
 
           {/* Close */}
           <button
@@ -166,23 +166,23 @@ export default function RegisterModal({ isOpen, onClose, event, onSuccess, onOpe
               position: 'absolute', top: '16px', right: '16px',
               width: '32px', height: '32px',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              background: '#F5F5F3',
-              border: '2px solid #E5E5E5',
+              background: 'var(--hover-ghost)',
+              border: '2px solid var(--border)',
               borderRadius: '6px', cursor: 'pointer',
-              color: '#555',
+              color: 'var(--text-sub)',
             }}
-            onMouseEnter={e => { e.currentTarget.style.background = '#111'; e.currentTarget.style.color = '#FFF'; }}
-            onMouseLeave={e => { e.currentTarget.style.background = '#F5F5F3'; e.currentTarget.style.color = '#555'; }}
+            onMouseEnter={e => { e.currentTarget.style.background = 'var(--text)'; e.currentTarget.style.color = 'var(--text-light)'; }}
+            onMouseLeave={e => { e.currentTarget.style.background = 'var(--hover-ghost)'; e.currentTarget.style.color = 'var(--text-sub)'; }}
           >
             <X size={15} />
           </button>
 
           {/* Header */}
           <div style={{ marginBottom: '24px' }}>
-            <p style={{ ...D, fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#888', marginBottom: '6px' }}>
+            <p style={{ ...D, fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '6px' }}>
               Registration
             </p>
-            <h2 style={{ ...D, fontSize: '24px', fontWeight: 700, color: '#111', lineHeight: 1.15, letterSpacing: '-0.01em', marginBottom: '8px' }}>
+            <h2 style={{ ...D, fontSize: '24px', fontWeight: 700, color: 'var(--text)', lineHeight: 1.15, letterSpacing: '-0.01em', marginBottom: '8px' }}>
               {event.title}
             </h2>
             <p style={{ ...B, fontSize: '13px', color: '#888', fontWeight: 500 }}>
@@ -261,7 +261,7 @@ export default function RegisterModal({ isOpen, onClose, event, onSuccess, onOpe
             {isProfileComplete ? (
               /* ONE-CLICK PROFILE DISPLAY */
               <div style={{
-                background: '#FAFAF8',
+                background: 'var(--bg)',
                 border: border,
                 borderRadius: '6px',
                 padding: '20px',
@@ -269,15 +269,15 @@ export default function RegisterModal({ isOpen, onClose, event, onSuccess, onOpe
                 flexDirection: 'column',
                 gap: '14px',
               }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1.5px solid #E5E5E3', paddingBottom: '8px' }}>
-                  <span style={{ ...D, fontSize: '11px', fontWeight: 700, color: '#666', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1.5px solid var(--border)', paddingBottom: '8px' }}>
+                  <span style={{ ...D, fontSize: '11px', fontWeight: 700, color: 'var(--text-sub)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                     Verified Student Details
                   </span>
                   <button 
                     type="button" 
                     onClick={() => setIsEditing(true)}
                     style={{ 
-                      ...D, fontSize: '11px', fontWeight: 700, color: '#111', 
+                      ...D, fontSize: '11px', fontWeight: 700, color: 'var(--text)', 
                       background: 'none', border: 'none', cursor: 'pointer', 
                       textDecoration: 'underline', textUnderlineOffset: '2px'
                     }}
@@ -286,21 +286,21 @@ export default function RegisterModal({ isOpen, onClose, event, onSuccess, onOpe
                   </button>
                 </div>
                 <div>
-                  <p style={{ ...B, fontSize: '15px', fontWeight: 700, color: '#111', margin: '0 0 2px' }}>
+                  <p style={{ ...B, fontSize: '15px', fontWeight: 700, color: 'var(--text)', margin: '0 0 2px' }}>
                     {profile.full_name}
                   </p>
-                  <p style={{ ...B, fontSize: '12px', color: '#666', margin: 0 }}>
+                  <p style={{ ...B, fontSize: '12px', color: 'var(--text-sub)', margin: 0 }}>
                     {user.email}
                   </p>
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                   <div>
-                    <span style={{ ...D, fontSize: '9px', fontWeight: 700, color: '#888', textTransform: 'uppercase' }}>Semester / Branch</span>
-                    <p style={{ ...B, fontSize: '13px', fontWeight: 600, color: '#111', margin: 0 }}>{profile.semester} · {profile.branch}</p>
+                    <span style={{ ...D, fontSize: '9px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase' }}>Semester / Branch</span>
+                    <p style={{ ...B, fontSize: '13px', fontWeight: 600, color: 'var(--text)', margin: 0 }}>{profile.semester} · {profile.branch}</p>
                   </div>
                   <div>
-                    <span style={{ ...D, fontSize: '9px', fontWeight: 700, color: '#888', textTransform: 'uppercase' }}>Roll Number</span>
-                    <p style={{ ...B, fontSize: '13px', fontWeight: 600, color: '#111', margin: 0 }}>{profile.student_id}</p>
+                    <span style={{ ...D, fontSize: '9px', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase' }}>Roll Number</span>
+                    <p style={{ ...B, fontSize: '13px', fontWeight: 600, color: 'var(--text)', margin: 0 }}>{profile.student_id}</p>
                   </div>
                 </div>
               </div>
@@ -393,17 +393,17 @@ export default function RegisterModal({ isOpen, onClose, event, onSuccess, onOpe
             {/* Price summary */}
             <div style={{
               padding: '14px 16px',
-              background: '#F7F7F4',
-              border: '1.5px solid #E5E5E3',
+              background: 'var(--bg)',
+              border: '1.5px solid var(--border)',
               borderRadius: '6px',
               display: 'flex', alignItems: 'center', justifyContent: 'space-between',
               marginTop: '4px',
             }}>
               <div>
-                <p style={{ ...D, fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#888' }}>
+                <p style={{ ...D, fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-muted)' }}>
                   Entry fee
                 </p>
-                <p style={{ ...B, fontSize: '12px', fontWeight: 400, color: '#888', marginTop: '2px' }}>
+                <p style={{ ...B, fontSize: '12px', fontWeight: 400, color: 'var(--text-muted)', marginTop: '2px' }}>
                   Confirmed on registration
                 </p>
               </div>
@@ -411,7 +411,7 @@ export default function RegisterModal({ isOpen, onClose, event, onSuccess, onOpe
                 ...D, fontSize: '20px', fontWeight: 700, color: '#111',
                 padding: '6px 16px',
                 background: event.price === 'Free' ? '#BBF7D0' : '#FEF08A',
-                border: '2px solid #111',
+                border: '2px solid var(--border)',
                 borderRadius: '4px',
               }}>
                 {event.price === 'Free' ? 'FREE' : event.price}
@@ -427,21 +427,20 @@ export default function RegisterModal({ isOpen, onClose, event, onSuccess, onOpe
                 ...D, width: '100%',
                 padding: '14px',
                 fontSize: '14px', fontWeight: 700,
-                color: '#111',
-                background: isProfileComplete ? '#10B981' : '#F5C518',
+                background: isProfileComplete ? '#10B981' : 'var(--accent-pop)',
                 border: border,
                 borderRadius: '4px',
-                boxShadow: '4px 4px 0 #111',
+                boxShadow: '4px 4px 0 var(--border)',
                 cursor: submitting ? 'not-allowed' : 'pointer',
                 opacity: submitting ? 0.75 : 1,
                 transition: 'all 0.1s ease',
                 marginTop: '4px',
                 letterSpacing: '0.01em',
                 color: isProfileComplete ? '#FFF' : '#111',
-                borderColor: isProfileComplete ? '#10B981' : '#111',
+                borderColor: isProfileComplete ? '#10B981' : 'var(--border)',
               }}
-              onMouseEnter={e => { if (!submitting) { e.currentTarget.style.transform = 'translate(-2px,-2px)'; e.currentTarget.style.boxShadow = '6px 6px 0 #111'; } }}
-              onMouseLeave={e => { if (!submitting) { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '4px 4px 0 #111'; } }}
+              onMouseEnter={e => { if (!submitting) { e.currentTarget.style.transform = 'translate(-2px,-2px)'; e.currentTarget.style.boxShadow = '6px 6px 0 var(--border)'; } }}
+              onMouseLeave={e => { if (!submitting) { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '4px 4px 0 var(--border)'; } }}
             >
               {submitting 
                 ? 'Processing...' 

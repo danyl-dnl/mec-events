@@ -156,16 +156,16 @@ export default function Ticket({ ticket, onDownload }) {
           animate={{ rotateX: tilt.x, rotateY: tilt.y, scale: hov ? 1.01 : 1 }}
           transition={{ type: 'spring', damping: 24, stiffness: 200, mass: 0.4 }}
           style={{
-            background: '#FFF',
-            border: '2.5px solid #111',
+            background: 'var(--bg-card)',
+            border: '2.5px solid var(--border)',
             borderRadius: '6px',
-            boxShadow: hov ? '8px 8px 0 #111' : '5px 5px 0 #111',
+            boxShadow: hov ? '8px 8px 0 var(--border)' : '5px 5px 0 var(--border)',
             overflow: 'hidden',
             transformStyle: 'preserve-3d',
           }}
         >
           {/* Yellow header bar */}
-          <div style={{ background: '#F5C518', padding: '16px 24px', borderBottom: '2.5px solid #111' }}>
+          <div style={{ background: 'var(--accent-pop)', padding: '16px 24px', borderBottom: '2.5px solid var(--border)' }}>
             <p style={{ ...D, fontSize: '10px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#111', marginBottom: '4px' }}>
               MEC Campus Entry Pass
             </p>
@@ -184,31 +184,31 @@ export default function Ticket({ ticket, onDownload }) {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
 
               <div>
-                <p style={{ ...D, fontSize: '9px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#888', marginBottom: '3px' }}>
+                <p style={{ ...D, fontSize: '9px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '3px' }}>
                   Participant
                 </p>
-                <p style={{ ...D, fontSize: '16px', fontWeight: 700, color: '#111' }}>
+                <p style={{ ...D, fontSize: '16px', fontWeight: 700, color: 'var(--text)' }}>
                   {ticket.fullName}
                 </p>
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                 <div>
-                  <p style={{ ...D, fontSize: '9px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#888', marginBottom: '3px' }}>Branch</p>
-                  <p style={{ ...B, fontSize: '13px', fontWeight: 600, color: '#111' }}>{ticket.branch} · {ticket.semester}</p>
+                  <p style={{ ...D, fontSize: '9px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '3px' }}>Branch</p>
+                  <p style={{ ...B, fontSize: '13px', fontWeight: 600, color: 'var(--text)' }}>{ticket.branch} · {ticket.semester}</p>
                 </div>
                 <div>
-                  <p style={{ ...D, fontSize: '9px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#888', marginBottom: '3px' }}>Roll No.</p>
-                  <p style={{ ...B, fontSize: '13px', fontWeight: 600, color: '#111' }}>{ticket.studentId}</p>
+                  <p style={{ ...D, fontSize: '9px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '3px' }}>Roll No.</p>
+                  <p style={{ ...B, fontSize: '13px', fontWeight: 600, color: 'var(--text)' }}>{ticket.studentId}</p>
                 </div>
               </div>
 
-              <div style={{ borderTop: '1px dashed #DDD', paddingTop: '12px', display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                <span style={{ ...B, display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: 500, color: '#555' }}>
-                  <Calendar size={12} color="#888" /> {fmtDate(ticket.eventDate)} · {ticket.eventTime}
+              <div style={{ borderTop: '1px dashed var(--border)', paddingTop: '12px', display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                <span style={{ ...B, display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: 500, color: 'var(--text-sub)' }}>
+                  <Calendar size={12} color="var(--text-muted)" /> {fmtDate(ticket.eventDate)} · {ticket.eventTime}
                 </span>
-                <span style={{ ...B, display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: 500, color: '#555' }}>
-                  <MapPin size={12} color="#888" />
+                <span style={{ ...B, display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px', fontWeight: 500, color: 'var(--text-sub)' }}>
+                  <MapPin size={12} color="var(--text-muted)" />
                   <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '180px' }}>
                     {ticket.eventVenue}
                   </span>
@@ -218,31 +218,31 @@ export default function Ticket({ ticket, onDownload }) {
 
             {/* Right: QR */}
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
-              <div style={{ padding: '6px', border: '2px solid #111', borderRadius: '4px', background: '#FFF' }}>
+              <div style={{ padding: '6px', border: '2px solid var(--border)', borderRadius: '4px', background: '#FFF' }}>
                 <MockQR id={ticket.id} />
               </div>
-              <p style={{ ...M, fontSize: '8px', color: '#888', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
+              <p style={{ ...M, fontSize: '8px', color: 'var(--text-muted)', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
                 {ticket.id.slice(0, 12)}
               </p>
             </div>
           </div>
 
           {/* Perforation */}
-          <div style={{ display: 'flex', alignItems: 'center', margin: '0 -1px', borderTop: '2px dashed #DDD', borderBottom: '2px dashed #DDD', padding: '6px 0', position: 'relative' }}>
-            <div style={{ width: '16px', height: '24px', borderRadius: '0 12px 12px 0', background: '#F7F7F4', border: '2px solid #111', borderLeft: 'none', flexShrink: 0 }} />
+          <div style={{ display: 'flex', alignItems: 'center', margin: '0 -1px', borderTop: '2px dashed var(--border)', borderBottom: '2px dashed var(--border)', padding: '6px 0', position: 'relative' }}>
+            <div style={{ width: '16px', height: '24px', borderRadius: '0 12px 12px 0', background: 'var(--bg)', border: '2px solid var(--border)', borderLeft: 'none', flexShrink: 0 }} />
             <div style={{ flex: 1 }} />
-            <div style={{ width: '16px', height: '24px', borderRadius: '12px 0 0 12px', background: '#F7F7F4', border: '2px solid #111', borderRight: 'none', flexShrink: 0 }} />
+            <div style={{ width: '16px', height: '24px', borderRadius: '12px 0 0 12px', background: 'var(--bg)', border: '2px solid var(--border)', borderRight: 'none', flexShrink: 0 }} />
           </div>
 
           {/* Footer strip */}
           <div style={{
             padding: '12px 24px',
             display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-            background: '#F7F7F4',
+            background: 'var(--bg)',
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-              <FileText size={11} color="#888" />
-              <span style={{ ...M, fontSize: '10px', color: '#888', letterSpacing: '0.04em' }}>
+              <FileText size={11} color="var(--text-muted)" />
+              <span style={{ ...M, fontSize: '10px', color: 'var(--text-muted)', letterSpacing: '0.04em' }}>
                 REG: {new Date(ticket.registeredAt).toLocaleDateString()}
               </span>
             </div>
@@ -251,8 +251,9 @@ export default function Ticket({ ticket, onDownload }) {
               fontSize: '9px', fontWeight: 700,
               letterSpacing: '0.08em', textTransform: 'uppercase',
               padding: '3px 10px',
-              background: '#111', color: '#F5C518',
+              background: 'var(--text)', color: 'var(--accent-pop)',
               borderRadius: '3px',
+              border: '1.5px solid var(--border)',
             }}>
               VERIFIED
             </span>
@@ -271,16 +272,16 @@ export default function Ticket({ ticket, onDownload }) {
             display: 'inline-flex', alignItems: 'center', gap: '8px',
             padding: '10px 20px',
             fontSize: '12px', fontWeight: 700,
-            color: '#111',
-            background: dropdownOpen ? '#F5C518' : 'transparent',
-            border: '2px solid #111',
+            color: dropdownOpen ? '#111' : 'var(--text)',
+            background: dropdownOpen ? 'var(--accent-pop)' : 'transparent',
+            border: '2px solid var(--border)',
             borderRadius: '4px', cursor: 'pointer',
             transition: 'all 0.12s ease',
-            boxShadow: dropdownOpen ? '3px 3px 0 #111' : 'none',
+            boxShadow: dropdownOpen ? '3px 3px 0 var(--border)' : 'none',
             transform: dropdownOpen ? 'translate(-2px, -2px)' : 'none',
             opacity: exporting ? 0.7 : 1,
           }}
-          onMouseEnter={e => { if (!dropdownOpen) e.currentTarget.style.background = 'rgba(17,17,17,0.06)'; }}
+          onMouseEnter={e => { if (!dropdownOpen) e.currentTarget.style.background = 'var(--hover-ghost)'; }}
           onMouseLeave={e => { if (!dropdownOpen) e.currentTarget.style.background = 'transparent'; }}
         >
           <Download size={13} />
@@ -296,9 +297,9 @@ export default function Ticket({ ticket, onDownload }) {
               transition={{ duration: 0.12 }}
               style={{
                 position: 'absolute', left: 0, bottom: '46px', // Opens upward to be visible above bottom overlays
-                width: '210px', background: '#FFFFFF',
-                border: '2.5px solid #111', borderRadius: '6px',
-                boxShadow: '5px 5px 0 #111',
+                width: '210px', background: 'var(--bg-card)',
+                border: '2.5px solid var(--border)', borderRadius: '6px',
+                boxShadow: '5px 5px 0 var(--border)',
                 padding: '8px', zIndex: 50,
                 display: 'flex', flexDirection: 'column', gap: '4px',
               }}
@@ -309,13 +310,13 @@ export default function Ticket({ ticket, onDownload }) {
                   display: 'flex', alignItems: 'center', gap: '8px',
                   padding: '8px 12px', background: 'none', border: 'none',
                   borderRadius: '4px', cursor: 'pointer',
-                  ...D, fontSize: '12px', fontWeight: 600, color: '#111',
+                  ...D, fontSize: '12px', fontWeight: 600, color: 'var(--text)',
                   textAlign: 'left', width: '100%',
                 }}
-                onMouseEnter={e => e.currentTarget.style.background = '#F5F5F3'}
+                onMouseEnter={e => e.currentTarget.style.background = 'var(--hover-ghost)'}
                 onMouseLeave={e => e.currentTarget.style.background = 'none'}
               >
-                <ImageIcon size={14} color="#555" />
+                <ImageIcon size={14} color="var(--text-muted)" />
                 Save as Image (PNG)
               </button>
               
@@ -325,17 +326,17 @@ export default function Ticket({ ticket, onDownload }) {
                   display: 'flex', alignItems: 'center', gap: '8px',
                   padding: '8px 12px', background: 'none', border: 'none',
                   borderRadius: '4px', cursor: 'pointer',
-                  ...D, fontSize: '12px', fontWeight: 600, color: '#111',
+                  ...D, fontSize: '12px', fontWeight: 600, color: 'var(--text)',
                   textAlign: 'left', width: '100%',
                 }}
-                onMouseEnter={e => e.currentTarget.style.background = '#F5F5F3'}
+                onMouseEnter={e => e.currentTarget.style.background = 'var(--hover-ghost)'}
                 onMouseLeave={e => e.currentTarget.style.background = 'none'}
               >
-                <Printer size={14} color="#555" />
+                <Printer size={14} color="var(--text-muted)" />
                 Save as PDF Document
               </button>
 
-              <div style={{ height: '1.5px', background: '#E5E5E3', margin: '4px 0' }} />
+              <div style={{ height: '1.5px', background: 'var(--border)', opacity: 0.2, margin: '4px 0' }} />
 
               <button
                 onClick={() => { setDropdownOpen(false); onDownload(ticket); }}
@@ -343,13 +344,13 @@ export default function Ticket({ ticket, onDownload }) {
                   display: 'flex', alignItems: 'center', gap: '8px',
                   padding: '8px 12px', background: 'none', border: 'none',
                   borderRadius: '4px', cursor: 'pointer',
-                  ...D, fontSize: '11px', fontWeight: 600, color: '#666',
+                  ...D, fontSize: '11px', fontWeight: 600, color: 'var(--text-sub)',
                   textAlign: 'left', width: '100%',
                 }}
-                onMouseEnter={e => e.currentTarget.style.background = '#F5F5F3'}
+                onMouseEnter={e => e.currentTarget.style.background = 'var(--hover-ghost)'}
                 onMouseLeave={e => e.currentTarget.style.background = 'none'}
               >
-                <FileCode size={13} color="#888" />
+                <FileCode size={13} color="var(--text-muted)" />
                 Export Raw Data (JSON)
               </button>
             </motion.div>

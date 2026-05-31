@@ -37,15 +37,15 @@ export default function ClubCard({ club, onExploreEvents }) {
         position: 'relative',
         display: 'flex',
         flexDirection: 'column',
-        background: '#FFFFFF',
-        border: '2.5px solid #111',
+        background: 'var(--bg-card)',
+        border: '2.5px solid var(--border)',
         borderRadius: '4px',
         borderLeft: `5px solid ${accent}`,
         padding: '24px',
         minHeight: '300px',
         overflow: 'hidden',
         transform: hovered ? 'translate(-3px, -3px)' : 'none',
-        boxShadow: hovered ? '9px 9px 0 #111' : '5px 5px 0 #111',
+        boxShadow: hovered ? '9px 9px 0 var(--border)' : '5px 5px 0 var(--border)',
         transition: 'transform 0.16s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.16s ease',
       }}
     >
@@ -78,15 +78,15 @@ export default function ClubCard({ club, onExploreEvents }) {
             padding: '6px 12px',
             ...D, fontSize: '11px', fontWeight: 700,
             letterSpacing: '0.03em',
-            color: '#111',
+            color: 'var(--text)',
             background: 'transparent',
-            border: '2px solid #111',
+            border: '2px solid var(--border)',
             borderRadius: '4px',
             cursor: 'pointer',
             transition: 'background 0.12s ease, color 0.12s ease',
           }}
-          onMouseEnter={e => { e.currentTarget.style.background = '#111'; e.currentTarget.style.color = '#FFF'; }}
-          onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#111'; }}
+          onMouseEnter={e => { e.currentTarget.style.background = 'var(--text)'; e.currentTarget.style.color = 'var(--text-light)'; }}
+          onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--text)'; }}
         >
           Events <ArrowUpRight size={12} strokeWidth={2.5} />
         </button>
@@ -96,7 +96,7 @@ export default function ClubCard({ club, onExploreEvents }) {
       <h3 style={{
         ...D,
         fontSize: '20px', fontWeight: 700,
-        color: '#111', lineHeight: 1.1,
+        color: 'var(--text)', lineHeight: 1.1,
         letterSpacing: '-0.01em',
         marginBottom: '4px',
       }}>
@@ -119,7 +119,7 @@ export default function ClubCard({ club, onExploreEvents }) {
       <p style={{
         ...B,
         fontSize: '13.5px', fontWeight: 400,
-        color: '#555',
+        color: 'var(--text-sub)',
         lineHeight: 1.6,
         flex: 1,
         display: '-webkit-box',
@@ -132,7 +132,7 @@ export default function ClubCard({ club, onExploreEvents }) {
 
       {/* ── FOOTER ── */}
       <div style={{
-        borderTop: '1.5px solid #EBEBEB',
+        borderTop: '1.5px solid var(--border)',
         marginTop: '16px',
         paddingTop: '14px',
         display: 'flex',
@@ -145,10 +145,10 @@ export default function ClubCard({ club, onExploreEvents }) {
             <span key={i} style={{
               ...B,
               fontSize: '10px', fontWeight: 600,
-              color: '#555',
+              color: 'var(--text-sub)',
               padding: '2px 8px',
-              background: '#F5F5F3',
-              border: '1px solid #DDDDD9',
+              background: 'var(--hover-ghost)',
+              border: '1px solid var(--border)',
               borderRadius: '3px',
             }}>
               {tag}
@@ -158,12 +158,12 @@ export default function ClubCard({ club, onExploreEvents }) {
 
         {/* Stats */}
         <div style={{ display: 'flex', gap: '16px' }}>
-          <span style={{ ...B, display: 'flex', alignItems: 'center', gap: '5px', fontSize: '12px', fontWeight: 600, color: '#333' }}>
-            <Users size={12} color="#888" />
+          <span style={{ ...B, display: 'flex', alignItems: 'center', gap: '5px', fontSize: '12px', fontWeight: 600, color: 'var(--text)' }}>
+            <Users size={12} color="var(--text-muted)" />
             {club.stats.members} members
           </span>
-          <span style={{ ...B, display: 'flex', alignItems: 'center', gap: '5px', fontSize: '12px', fontWeight: 600, color: '#333' }}>
-            <Layers size={12} color="#888" />
+          <span style={{ ...B, display: 'flex', alignItems: 'center', gap: '5px', fontSize: '12px', fontWeight: 600, color: 'var(--text)' }}>
+            <Layers size={12} color="var(--text-muted)" />
             {club.stats.projects} projects
           </span>
         </div>

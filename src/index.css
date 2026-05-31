@@ -42,6 +42,38 @@
   /* ── Accent ── */
   --accent:       #111111;
   --accent-pop:   #F5C518;
+
+  --hover-ghost:  rgba(17,17,17,0.05);
+}
+
+/* ============================================================
+   DARK THEME OVERRIDES
+   ============================================================ */
+.dark {
+  /* ── Core Palette ── */
+  --bg:           #0F0F0F;
+  --bg-card:      #1A1A1A;
+  --bg-dark:      #1E1E1E;
+  --bg-dark-2:    #2A2A2A;
+
+  /* ── Text ── */
+  --text:         #FFFFFF;
+  --text-sub:     #A0A0A0;
+  --text-light:   #1A1A1A;
+  --text-muted:   #707070;
+
+  /* ── Borders & Shadows ── */
+  --border:       #FFFFFF;
+  --shadow-xs:    2px 2px 0 #FFFFFF;
+  --shadow-sm:    4px 4px 0 #FFFFFF;
+  --shadow-md:    6px 6px 0 #FFFFFF;
+  --shadow-lg:    10px 10px 0 #FFFFFF;
+
+  /* ── Accent ── */
+  --accent:       #FFFFFF;
+  --accent-pop:   #F5C518;
+
+  --hover-ghost:  rgba(255,255,255,0.08);
 }
 
 /* ============================================================
@@ -152,15 +184,15 @@ h1, h2, h3, h4, h5 {
 .btn:hover  { transform: translate(-2px, -2px); box-shadow: var(--shadow-md); }
 .btn:active { transform: translate(1px, 1px);   box-shadow: var(--shadow-xs); }
 
-.btn-dark   { background: var(--text); color: #FFF; }
+.btn-dark   { background: var(--text); color: var(--text-light); }
 .btn-white  { background: var(--bg-card); color: var(--text); }
-.btn-yellow { background: var(--accent-pop); color: var(--text); }
+.btn-yellow { background: var(--accent-pop); color: #111111; }
 .btn-ghost  {
   background: transparent;
   color: var(--text);
   box-shadow: none;
 }
-.btn-ghost:hover { background: rgba(17,17,17,0.05); box-shadow: none; transform: none; }
+.btn-ghost:hover { background: var(--hover-ghost); box-shadow: none; transform: none; }
 
 /* ============================================================
    INPUT / SELECT
