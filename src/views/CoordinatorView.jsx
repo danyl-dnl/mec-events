@@ -207,10 +207,26 @@ export default function CoordinatorView({ setView, pageAnim }) {
     const loadRegistrations = async () => {
       setLoading(true);
       try {
-        const { data, error } = await supabase
+        // Fallback immediately if credentials are placeholders to prevent request hangs
+        const isPlaceholder = !supabase || !supabase.supabaseUrl || supabase.supabaseUrl.includes('placeholder');
+        if (isPlaceholder) {
+          throw new Error('Supabase URL/Key is unconfigured');
+        }
+
+        // Establish a 2-second timeout race to intercept network hanging issues
+        const timeoutPromise = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error('Supabase request timed out')), 2000)
+        );
+
+        const fetchPromise = supabase
           .from('registrations')
           .select('*')
           .order('registered_at', { ascending: false });
+
+        const result = await Promise.race([fetchPromise, timeoutPromise]);
+        
+        const data = result.data;
+        const error = result.error;
 
         if (error) {
           console.warn('RLS or Supabase query failed, falling back to mock dataset:', error);
@@ -244,7 +260,7 @@ export default function CoordinatorView({ setView, pageAnim }) {
           setRegistrations(Array.from(uniqueMap.values()));
         }
       } catch (err) {
-        console.error('Error fetching registrations, loading mock preview:', err);
+        console.warn('Error fetching registrations or request timed out, loading mock preview:', err.message);
         setRegistrations(MOCK_COORDINATOR_REGS);
       } finally {
         setLoading(false);
