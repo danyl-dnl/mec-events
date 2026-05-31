@@ -262,6 +262,21 @@ export default function Header({ currentView, setCurrentView, onOpenAuth, onOpen
                         </button>
                       )}
                       <button
+                        onClick={() => { setCurrentView('dashboard'); setDropdownOpen(false); }}
+                        style={{
+                          display: 'flex', alignItems: 'center', gap: '8px',
+                          padding: '8px', background: 'none', border: 'none',
+                          borderRadius: '4px', cursor: 'pointer',
+                          ...D, fontSize: '12px', fontWeight: 600, color: '#111',
+                          textAlign: 'left', width: '100%',
+                        }}
+                        onMouseEnter={e => e.currentTarget.style.background = '#F5F5F3'}
+                        onMouseLeave={e => e.currentTarget.style.background = 'none'}
+                      >
+                        <TicketIcon size={14} style={{ color: '#111' }} />
+                        Registered Events
+                      </button>
+                      <button
                         onClick={() => { onOpenProfile(); setDropdownOpen(false); }}
                         style={{
                           display: 'flex', alignItems: 'center', gap: '8px',
@@ -399,19 +414,33 @@ export default function Header({ currentView, setCurrentView, onOpenAuth, onOpen
                     </button>
                   )}
                   <button
+                    onClick={() => { setCurrentView('dashboard'); setOpen(false); }}
+                    style={{
+                      display: 'flex', alignItems: 'center', gap: '10px',
+                      padding: '12px 16px',
+                      ...D, fontSize: '14px', fontWeight: 600,
+                      color: '#CCCCCC', background: 'transparent',
+                      border: 'none', borderRadius: '6px', cursor: 'pointer',
+                      textAlign: 'left', width: '100%',
+                    }}
+                  >
+                    <TicketIcon size={15} style={{ color: '#888' }} />
+                    Registered Events
+                  </button>
+                  <button
                     onClick={() => { onOpenProfile(); setOpen(false); }}
-                  style={{
-                    display: 'flex', alignItems: 'center', gap: '10px',
-                    padding: '12px 16px',
-                    ...D, fontSize: '14px', fontWeight: 600,
-                    color: '#CCCCCC', background: 'transparent',
-                    border: 'none', borderRadius: '6px', cursor: 'pointer',
-                    textAlign: 'left', width: '100%',
-                  }}
-                >
-                  <Settings size={15} style={{ color: '#888' }} />
-                  Edit Profile
-                </button>
+                    style={{
+                      display: 'flex', alignItems: 'center', gap: '10px',
+                      padding: '12px 16px',
+                      ...D, fontSize: '14px', fontWeight: 600,
+                      color: '#CCCCCC', background: 'transparent',
+                      border: 'none', borderRadius: '6px', cursor: 'pointer',
+                      textAlign: 'left', width: '100%',
+                    }}
+                  >
+                    <Settings size={15} style={{ color: '#888' }} />
+                    Edit Profile
+                  </button>
                 </>
               )}
 
