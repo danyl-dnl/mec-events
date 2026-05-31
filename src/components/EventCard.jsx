@@ -36,6 +36,7 @@ export default function EventCard({ event, onRegister, isRegistered }) {
 
   return (
     <motion.article
+      onClick={() => onRegister(event)}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       initial={{ opacity: 0, y: 16 }}
@@ -52,6 +53,7 @@ export default function EventCard({ event, onRegister, isRegistered }) {
         padding: '24px',
         minHeight: '360px',
         overflow: 'hidden',
+        cursor: 'pointer',
         transform: hovered ? 'translate(-3px, -3px)' : 'none',
         boxShadow: hovered ? '9px 9px 0 var(--border)' : '5px 5px 0 var(--border)',
         transition: 'transform 0.16s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.16s ease',
@@ -232,7 +234,7 @@ export default function EventCard({ event, onRegister, isRegistered }) {
           ) : (
             <button
               id={`btn-register-${event.id}`}
-              onClick={() => onRegister(event)}
+              onClick={(e) => { e.stopPropagation(); onRegister(event); }}
               style={{
                 ...D,
                 fontSize: '12px', fontWeight: 700,

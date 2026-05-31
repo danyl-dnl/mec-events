@@ -227,6 +227,8 @@ export default function App() {
         event={activeEvent}
         onSuccess={handleSuccess}
         onOpenAuth={() => setAuthModalOpen(true)}
+        isRegistered={activeEvent ? registered.some(r => r.eventId === activeEvent.id) : false}
+        setView={setView}
       />
 
       <AuthModal
