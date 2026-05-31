@@ -74,11 +74,17 @@ export function AuthProvider({ children }) {
         .order('registered_at', { ascending: false });
 
       if (error) {
-        console.error('Error fetching registrations:', error);
+        console.error('Error fetching registrations, checking local cache:', error);
+        try {
+          const cached = localStorage.getItem(`mec_cached_registrations_${userId}`);
+          if (cached) return JSON.parse(cached);
+        } catch (cErr) {
+          console.error(cErr);
+        }
         return [];
       }
       // Map database schema to App's ticket schema
-      return (data || []).map(r => ({
+      const mapped = (data || []).map(r => ({
         id: r.ticket_id || `TKT-${r.id.substr(0,8).toUpperCase()}`,
         eventId: r.event_id,
         eventTitle: r.event_title,
@@ -93,8 +99,23 @@ export function AuthProvider({ children }) {
         studentId: r.student_id,
         registeredAt: r.registered_at,
       }));
+
+      // Cache locally
+      try {
+        localStorage.setItem(`mec_cached_registrations_${userId}`, JSON.stringify(mapped));
+      } catch (cErr) {
+        console.error('LocalStorage write failed:', cErr);
+      }
+
+      return mapped;
     } catch (err) {
-      console.error('Unexpected error loading registrations:', err);
+      console.error('Unexpected error loading registrations, checking local cache:', err);
+      try {
+        const cached = localStorage.getItem(`mec_cached_registrations_${userId}`);
+        if (cached) return JSON.parse(cached);
+      } catch (cErr) {
+        console.error(cErr);
+      }
       return [];
     }
   };

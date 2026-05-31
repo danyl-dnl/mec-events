@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Menu, X, Globe, Ticket as TicketIcon, LayoutGrid, Zap, User as UserIcon, LogOut, Settings, Sun, Moon } from 'lucide-react';
+import { Menu, X, Globe, Ticket as TicketIcon, LayoutGrid, Zap, User as UserIcon, LogOut, Settings, ShieldAlert } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
 
@@ -13,7 +13,7 @@ const NAV = [
   { id: 'dashboard',label: 'My Passes', Icon: TicketIcon },
 ];
 
-export default function Header({ currentView, setCurrentView, theme, toggleTheme, onOpenAuth, onOpenProfile }) {
+export default function Header({ currentView, setCurrentView, onOpenAuth, onOpenProfile }) {
   const { user, profile, signOut } = useAuth();
   const [open, setOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -64,14 +64,20 @@ export default function Header({ currentView, setCurrentView, theme, toggleTheme
           aria-label="Home"
         >
           {/* Icon mark */}
-          <div style={{
-            width: '36px', height: '36px',
-            background: '#F5C518',
-            border: '2.5px solid #F5C518',
-            borderRadius: '6px',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-          }}>
-            <Zap size={18} color="#111" strokeWidth={2.5} />
+          <div style={{ perspective: '400px' }}>
+            <motion.div
+              whileHover={{ rotateY: 180, scale: 1.08 }}
+              transition={{ type: 'spring', stiffness: 180, damping: 11 }}
+              style={{
+                width: '36px', height: '36px',
+                background: '#F5C518',
+                border: '2.5px solid #F5C518',
+                borderRadius: '6px',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+              }}
+            >
+              <Zap size={18} color="#111" strokeWidth={2.5} />
+            </motion.div>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '1px' }}>
@@ -122,26 +128,6 @@ export default function Header({ currentView, setCurrentView, theme, toggleTheme
 
         {/* ── DESKTOP ACTIONS ── */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }} className="hide-on-mobile">
-          <button
-            onClick={toggleTheme}
-            title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-            style={{
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              width: '36px', height: '36px',
-              background: 'transparent',
-              border: '2.5px solid #333',
-              borderRadius: '6px',
-              cursor: 'pointer',
-              color: '#FFFFFF',
-              transition: 'all 0.12s ease',
-              flexShrink: 0,
-            }}
-            onMouseEnter={e => { e.currentTarget.style.background = '#222'; e.currentTarget.style.borderColor = '#444'; }}
-            onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = '#333'; }}
-          >
-            {theme === 'dark' ? <Sun size={15} color="#F5C518" strokeWidth={2.5} /> : <Moon size={15} strokeWidth={2.5} />}
-          </button>
-
           <a
             href="https://www.mec.ac.in"
             target="_blank"
@@ -258,6 +244,21 @@ export default function Header({ currentView, setCurrentView, theme, toggleTheme
 
                     {/* Actions */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                      <button
+                        onClick={() => { setCurrentView('coordinator'); setDropdownOpen(false); }}
+                        style={{
+                          display: 'flex', alignItems: 'center', gap: '8px',
+                          padding: '8px', background: 'none', border: 'none',
+                          borderRadius: '4px', cursor: 'pointer',
+                          ...D, fontSize: '12px', fontWeight: 600, color: '#111',
+                          textAlign: 'left', width: '100%',
+                        }}
+                        onMouseEnter={e => e.currentTarget.style.background = '#F5F5F3'}
+                        onMouseLeave={e => e.currentTarget.style.background = 'none'}
+                      >
+                        <ShieldAlert size={14} style={{ color: '#C2410C' }} />
+                        Coordinator Desk
+                      </button>
                       <button
                         onClick={() => { onOpenProfile(); setDropdownOpen(false); }}
                         style={{
@@ -378,8 +379,23 @@ export default function Header({ currentView, setCurrentView, theme, toggleTheme
               })}
 
               {user && (
-                <button
-                  onClick={() => { onOpenProfile(); setOpen(false); }}
+                <>
+                  <button
+                    onClick={() => { setCurrentView('coordinator'); setOpen(false); }}
+                    style={{
+                      display: 'flex', alignItems: 'center', gap: '10px',
+                      padding: '12px 16px',
+                      ...D, fontSize: '14px', fontWeight: 600,
+                      color: '#CCCCCC', background: 'transparent',
+                      border: 'none', borderRadius: '6px', cursor: 'pointer',
+                      textAlign: 'left', width: '100%',
+                    }}
+                  >
+                    <ShieldAlert size={15} style={{ color: '#F5C518' }} />
+                    Coordinator Desk
+                  </button>
+                  <button
+                    onClick={() => { onOpenProfile(); setOpen(false); }}
                   style={{
                     display: 'flex', alignItems: 'center', gap: '10px',
                     padding: '12px 16px',
@@ -392,29 +408,10 @@ export default function Header({ currentView, setCurrentView, theme, toggleTheme
                   <Settings size={15} style={{ color: '#888' }} />
                   Edit Profile
                 </button>
+                </>
               )}
 
-              <button
-                onClick={toggleTheme}
-                style={{
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
-                  padding: '12px', marginTop: '8px',
-                  ...D, fontSize: '13px', fontWeight: 600,
-                  color: '#CCCCCC', background: 'transparent',
-                  border: '1.5px dashed #333', borderRadius: '6px', cursor: 'pointer',
-                  width: '100%',
-                }}
-              >
-                {theme === 'dark' ? (
-                  <>
-                    <Sun size={14} color="#F5C518" strokeWidth={2.5} /> Light Theme
-                  </>
-                ) : (
-                  <>
-                    <Moon size={14} color="#888" strokeWidth={2.5} /> Dark Theme
-                  </>
-                )}
-              </button>
+
 
               <a
                 href="https://www.mec.ac.in"

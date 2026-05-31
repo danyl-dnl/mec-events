@@ -46,35 +46,7 @@
   --hover-ghost:  rgba(17,17,17,0.05);
 }
 
-/* ============================================================
-   DARK THEME OVERRIDES
-   ============================================================ */
-.dark {
-  /* ── Core Palette ── */
-  --bg:           #0F0F0F;
-  --bg-card:      #1A1A1A;
-  --bg-dark:      #1E1E1E;
-  --bg-dark-2:    #2A2A2A;
 
-  /* ── Text ── */
-  --text:         #FFFFFF;
-  --text-sub:     #A0A0A0;
-  --text-light:   #1A1A1A;
-  --text-muted:   #707070;
-
-  /* ── Borders & Shadows ── */
-  --border:       #FFFFFF;
-  --shadow-xs:    2px 2px 0 #FFFFFF;
-  --shadow-sm:    4px 4px 0 #FFFFFF;
-  --shadow-md:    6px 6px 0 #FFFFFF;
-  --shadow-lg:    10px 10px 0 #FFFFFF;
-
-  /* ── Accent ── */
-  --accent:       #FFFFFF;
-  --accent-pop:   #F5C518;
-
-  --hover-ghost:  rgba(255,255,255,0.08);
-}
 
 /* ============================================================
    RESET

@@ -105,6 +105,7 @@ export default function AuthModal({ isOpen, onClose }) {
         position: 'fixed', inset: 0, zIndex: 200,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         padding: '16px',
+        perspective: '1000px',
       }}>
         {/* Backdrop */}
         <motion.div
@@ -115,13 +116,14 @@ export default function AuthModal({ isOpen, onClose }) {
 
         {/* Modal container */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 15 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 15 }}
+          initial={{ opacity: 0, scale: 0.9, y: 30, rotateX: 12 }}
+          animate={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
+          exit={{ opacity: 0, scale: 0.9, y: 20, rotateX: -8 }}
           transition={{ type: 'spring', damping: 25, stiffness: 220 }}
           style={{
             position: 'relative', zIndex: 10,
             width: '100%', maxWidth: '420px',
+            transformStyle: 'preserve-3d',
             background: 'var(--bg-card)',
             border: border,
             borderRadius: '6px',

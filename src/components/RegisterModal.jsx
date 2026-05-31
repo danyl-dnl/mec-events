@@ -130,6 +130,7 @@ export default function RegisterModal({ isOpen, onClose, event, onSuccess, onOpe
         position: 'fixed', inset: 0, zIndex: 200,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         padding: '16px',
+        perspective: '1000px',
       }}>
         {/* Backdrop */}
         <motion.div
@@ -140,12 +141,13 @@ export default function RegisterModal({ isOpen, onClose, event, onSuccess, onOpe
 
         {/* Modal */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9, y: 24 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.9, y: 24 }}
+          initial={{ opacity: 0, scale: 0.9, y: 30, rotateX: 12 }}
+          animate={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
+          exit={{ opacity: 0, scale: 0.9, y: 20, rotateX: -8 }}
           transition={{ type: 'spring', damping: 28, stiffness: 240 }}
           style={{
             position: 'relative', zIndex: 10,
+            transformStyle: 'preserve-3d',
             width: '100%', maxWidth: '480px',
             background: 'var(--bg-card)',
             border: border,

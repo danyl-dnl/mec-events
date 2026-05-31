@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, Users, Award } from 'lucide-react';
 import SectionHead from '../components/SectionHead';
@@ -7,6 +7,73 @@ import { MEC_EVENTS } from '../data/mockDatabase';
 
 const D = { fontFamily: "'Space Grotesk', sans-serif" };
 const B = { fontFamily: "'Plus Jakarta Sans', sans-serif" };
+
+function StatCard({ Icon, value, label, sub, bg }) {
+  const ref = useRef(null);
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const [hov, setHov] = useState(false);
+
+  const onMove = (e) => {
+    if (!ref.current || !hov) return;
+    const r = ref.current.getBoundingClientRect();
+    // Dynamic 3D tilt tracking (restricted to 4 degrees for visual elegance)
+    setTilt({
+      x: -((e.clientY - r.top  - r.height / 2) / (r.height / 2)) * 4,
+      y:  ((e.clientX - r.left - r.width  / 2) / (r.width  / 2)) * 4,
+    });
+  };
+
+  return (
+    <div style={{ perspective: '800px' }}>
+      <motion.div
+        ref={ref}
+        onMouseMove={onMove}
+        onMouseEnter={() => setHov(true)}
+        onMouseLeave={() => { setHov(false); setTilt({ x: 0, y: 0 }); }}
+        animate={{ rotateX: tilt.x, rotateY: tilt.y, scale: hov ? 1.015 : 1 }}
+        transition={{ type: 'spring', damping: 25, stiffness: 200, mass: 0.3 }}
+        style={{
+          background: 'var(--bg-card)',
+          border: '2.5px solid var(--border)',
+          borderRadius: '4px',
+          boxShadow: hov ? 'var(--shadow-lg)' : 'var(--shadow-md)',
+          padding: '28px 24px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '16px',
+          transformStyle: 'preserve-3d',
+          cursor: 'pointer',
+        }}
+      >
+        {/* Parallax Layer 1: Icon Badge (tilted and pushed out by 22px in Z space) */}
+        <div style={{
+          width: '40px', height: '40px',
+          background: bg,
+          borderRadius: '8px',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          border: '1.5px solid #111',
+          transform: 'translateZ(22px)',
+          backfaceVisibility: 'hidden',
+        }}>
+          <Icon size={20} color="#111" strokeWidth={2} />
+        </div>
+
+        {/* Parallax Layer 2: Text block (pushed out by 10px in Z space) */}
+        <div style={{ transform: 'translateZ(10px)', backfaceVisibility: 'hidden' }}>
+          <span style={{ ...D, fontSize: '36px', fontWeight: 700, color: 'var(--text)', display: 'block', lineHeight: 1, letterSpacing: '-0.02em' }}>
+            {value}
+          </span>
+          <span style={{ ...D, fontSize: '13px', fontWeight: 600, color: 'var(--text)', display: 'block', marginTop: '6px' }}>
+            {label}
+          </span>
+          <span style={{ ...B, fontSize: '11px', fontWeight: 400, color: 'var(--text-muted)', display: 'block', marginTop: '2px' }}>
+            {sub}
+          </span>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
 
 export default function HomeView({ setView, registered, setActiveEvent, pageAnim }) {
   const stats = [
@@ -89,38 +156,8 @@ export default function HomeView({ setView, registered, setActiveEvent, pageAnim
 
       {/* STATS */}
       <section style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }} className="stats-grid">
-        {stats.map(({ Icon, value, label, sub, bg }) => (
-          <div key={label} style={{
-            background: 'var(--bg-card)',
-            border: '2.5px solid var(--border)',
-            borderRadius: '4px',
-            boxShadow: 'var(--shadow-md)',
-            padding: '28px 24px',
-            display: 'flex', flexDirection: 'column', gap: '16px',
-            transition: 'transform 0.12s ease, box-shadow 0.12s ease',
-          }}>
-            {/* Stat Accent Badge (keeps its custom flat brand color for high impact!) */}
-            <div style={{
-              width: '40px', height: '40px',
-              background: bg,
-              borderRadius: '8px',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              border: '1.5px solid #111',
-            }}>
-              <Icon size={20} color="#111" strokeWidth={2} />
-            </div>
-            <div>
-              <span style={{ ...D, fontSize: '36px', fontWeight: 700, color: 'var(--text)', display: 'block', lineHeight: 1, letterSpacing: '-0.02em' }}>
-                {value}
-              </span>
-              <span style={{ ...D, fontSize: '13px', fontWeight: 600, color: 'var(--text)', display: 'block', marginTop: '6px' }}>
-                {label}
-              </span>
-              <span style={{ ...B, fontSize: '11px', fontWeight: 400, color: 'var(--text-muted)', display: 'block', marginTop: '2px' }}>
-                {sub}
-              </span>
-            </div>
-          </div>
+        {stats.map((stat) => (
+          <StatCard key={stat.label} {...stat} />
         ))}
       </section>
 

@@ -28,6 +28,12 @@ function fmtDate(ds) {
 export default function EventCard({ event, onRegister, isRegistered }) {
   const [hovered, setHovered] = useState(false);
 
+  const capacityDelta = event.id === 'robowars-26' ? 3 : event.id === 'iot-bootcamp' ? 4 : event.id === 'devsprint-26' ? 5 : 12;
+  const maxCapacity = event.registrationCount + capacityDelta;
+  const currentCount = event.registrationCount + (isRegistered ? 1 : 0);
+  const seatsLeft = maxCapacity - currentCount;
+  const fillPct = (currentCount / maxCapacity) * 100;
+
   return (
     <motion.article
       onMouseEnter={() => setHovered(true)}
@@ -139,6 +145,35 @@ export default function EventCard({ event, onRegister, isRegistered }) {
       }}>
         {event.description}
       </p>
+
+      {/* ── SEAT CAPACITY COUNTER ── */}
+      <div style={{ marginTop: '14px', display: 'flex', flexDirection: 'column', gap: '5px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span style={{ ...D, fontSize: '10px', fontWeight: 700, color: 'var(--text-sub)', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
+            Registration Progress
+          </span>
+          <span style={{ ...D, fontSize: '10px', fontWeight: 700, color: seatsLeft <= 5 ? '#EF4444' : 'var(--text)' }}>
+            {seatsLeft <= 5 ? `🔥 ONLY ${seatsLeft} SEATS LEFT` : `${currentCount} / ${maxCapacity} filled`}
+          </span>
+        </div>
+        
+        {/* Progress Bar container */}
+        <div style={{
+          width: '100%', height: '8px',
+          background: 'var(--hover-ghost)',
+          border: '1.5px solid var(--border)',
+          borderRadius: '4px',
+          overflow: 'hidden',
+          position: 'relative',
+        }}>
+          <div style={{
+            width: `${Math.min(fillPct, 100)}%`,
+            height: '100%',
+            background: seatsLeft <= 5 ? '#EF4444' : 'var(--accent-pop)',
+            transition: 'width 0.3s ease',
+          }} />
+        </div>
+      </div>
 
       {/* ── FOOTER ── */}
       <div style={{

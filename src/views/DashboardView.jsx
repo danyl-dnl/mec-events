@@ -23,7 +23,21 @@ export default function DashboardView({ registered, handleDownload, setView, pag
           background: 'var(--bg-card)', border: '2.5px solid var(--border)', borderRadius: '4px',
           boxShadow: 'var(--shadow-md)', padding: '80px 40px', textAlign: 'center',
         }}>
-          <TicketIcon size={40} style={{ margin: '0 auto 16px', display: 'block', color: 'var(--text-muted)' }} />
+          <motion.div
+            animate={{
+              y: [0, -10, 0],
+              rotateY: [0, 20, 0],
+              rotateX: [0, 8, 0],
+            }}
+            transition={{
+              duration: 5.5,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+            style={{ display: 'inline-block', margin: '0 auto 20px', perspective: '600px' }}
+          >
+            <TicketIcon size={40} style={{ color: 'var(--text-muted)' }} />
+          </motion.div>
           <h3 style={{ ...D, fontSize: '20px', fontWeight: 700, marginBottom: '8px', color: 'var(--text)' }}>No passes yet</h3>
           <p style={{ ...B, fontSize: '14px', color: 'var(--text-muted)', marginBottom: '24px' }}>
             Register for an event and your pass will appear here instantly.

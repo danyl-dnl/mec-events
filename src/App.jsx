@@ -16,6 +16,7 @@ import HomeView from './views/HomeView';
 import EventsView from './views/EventsView';
 import ClubsView from './views/ClubsView';
 import DashboardView from './views/DashboardView';
+import CoordinatorView from './views/CoordinatorView';
 
 const pageAnim = {
   initial:  { opacity: 0, y: 12 },
@@ -27,7 +28,6 @@ export default function App() {
   const { user, registrations } = useAuth();
 
   const [view,         setView]         = useState('home');
-  const [theme,        setTheme]        = useState('light');
   const [localRegistrations, setLocalRegistrations] = useState([]);
   const [activeEvent,  setActiveEvent]  = useState(null);
   const [category,     setCategory]     = useState('All');
@@ -36,6 +36,19 @@ export default function App() {
 
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [profileModalOpen, setProfileModalOpen] = useState(false);
+  const [isOnline,     setIsOnline]     = useState(navigator.onLine);
+
+  // Sync network status
+  useEffect(() => {
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
 
   const registered = user ? registrations : localRegistrations;
 
@@ -46,14 +59,7 @@ export default function App() {
     return () => window.removeEventListener('beforeinstallprompt', handler);
   }, []);
 
-  // Sync document dataset / class theme
-  useEffect(() => {
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [theme]);
+
 
   const handleInstall = () => {
     if (!installPrompt) return;
@@ -100,11 +106,26 @@ export default function App() {
       transition: 'background 0.2s ease, color 0.2s ease',
     }}>
 
+      {!isOnline && (
+        <div style={{
+          background: '#EF4444',
+          color: '#FFF',
+          textAlign: 'center',
+          padding: '8px 16px',
+          fontSize: '11px',
+          fontWeight: 700,
+          borderBottom: '2.5px solid #111',
+          fontFamily: "'Space Grotesk', sans-serif",
+          letterSpacing: '0.05em',
+          zIndex: 1001,
+        }}>
+          ⚡ OFFLINE MODE: Displaying cached entry passes. QR Codes remain fully active.
+        </div>
+      )}
+
       <Header
         currentView={view}
         setCurrentView={setView}
-        theme={theme}
-        toggleTheme={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}
         onOpenAuth={() => setAuthModalOpen(true)}
         onOpenProfile={() => setProfileModalOpen(true)}
       />
@@ -161,6 +182,13 @@ export default function App() {
             <DashboardView
               registered={registered}
               handleDownload={handleDownload}
+              setView={setView}
+              pageAnim={pageAnim}
+            />
+          )}
+
+          {view === 'coordinator' && (
+            <CoordinatorView
               setView={setView}
               pageAnim={pageAnim}
             />

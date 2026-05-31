@@ -100,6 +100,7 @@ export default function ProfileModal({ isOpen, onClose }) {
         position: 'fixed', inset: 0, zIndex: 200,
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         padding: '16px',
+        perspective: '1000px',
       }}>
         {/* Backdrop */}
         <motion.div
@@ -110,12 +111,13 @@ export default function ProfileModal({ isOpen, onClose }) {
 
         {/* Modal */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 15 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 15 }}
+          initial={{ opacity: 0, scale: 0.9, y: 30, rotateX: 12 }}
+          animate={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
+          exit={{ opacity: 0, scale: 0.9, y: 20, rotateX: -8 }}
           transition={{ type: 'spring', damping: 25, stiffness: 220 }}
           style={{
             position: 'relative', zIndex: 10,
+            transformStyle: 'preserve-3d',
             width: '100%', maxWidth: '440px',
             background: 'var(--bg-card)',
             border: '2.5px solid var(--border)',
