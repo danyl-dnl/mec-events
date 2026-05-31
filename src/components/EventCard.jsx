@@ -51,7 +51,7 @@ export default function EventCard({ event, onRegister, isRegistered }) {
         border: '2.5px solid var(--border)',
         borderRadius: '4px',
         padding: '24px',
-        minHeight: '360px',
+        height: '430px',
         overflow: 'hidden',
         cursor: 'pointer',
         transform: hovered ? 'translate(-3px, -3px)' : 'none',
