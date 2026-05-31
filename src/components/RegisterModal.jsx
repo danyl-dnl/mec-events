@@ -62,6 +62,12 @@ export default function RegisterModal({ isOpen, onClose, event, onSuccess, onOpe
 
   if (!isOpen || !event) return null;
 
+  const capacityDelta = event.id === 'robowars-26' ? 3 : event.id === 'iot-bootcamp' ? 4 : event.id === 'devsprint-26' ? 5 : 12;
+  const maxCapacity = event.maxCapacity || (event.registrationCount + capacityDelta);
+  const currentCount = event.registrationCount + (isRegistered ? 1 : 0);
+  const seatsLeft = Math.max(0, maxCapacity - currentCount);
+  const fillPct = maxCapacity > 0 ? (currentCount / maxCapacity) * 100 : 0;
+
   const validate = () => {
     const e = {};
     if (!form.fullName.trim())  e.fullName  = 'Required';
