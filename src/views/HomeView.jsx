@@ -75,9 +75,11 @@ function StatCard({ Icon, value, label, sub, bg }) {
   );
 }
 
-export default function HomeView({ setView, registered, setActiveEvent, pageAnim }) {
+export default function HomeView({ setView, registered, setActiveEvent, pageAnim, eventsList }) {
+  const displayEvents = eventsList || MEC_EVENTS;
+
   const stats = [
-    { Icon: Calendar, value: '8+',   label: 'Active Events',    sub: 'Registration open',  bg: '#FEF08A' },
+    { Icon: Calendar, value: `${displayEvents.length}+`,   label: 'Active Events',    sub: 'Registration open',  bg: '#FEF08A' },
     { Icon: Users,    value: '1,200+',label: 'Campus Makers',   sub: 'Across all chapters', bg: '#BBF7D0' },
     { Icon: Award,    value: '8',     label: 'Student Clubs',   sub: 'Official chapters',   bg: '#BAE6FD' },
   ];
@@ -180,7 +182,7 @@ export default function HomeView({ setView, registered, setActiveEvent, pageAnim
           }
         />
         <div className="bento-grid">
-          {MEC_EVENTS.filter(e => e.flagship).map(evt => (
+          {displayEvents.filter(e => e.flagship).map(evt => (
             <EventCard
               key={evt.id} event={evt}
               onRegister={setActiveEvent}

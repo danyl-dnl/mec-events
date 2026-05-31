@@ -29,6 +29,26 @@ export default function App() {
 
   const [view,         setView]         = useState('home');
   const [localRegistrations, setLocalRegistrations] = useState([]);
+  
+  // Dynamic Events state
+  const [eventsList, setEventsList] = useState(() => {
+    try {
+      const cached = localStorage.getItem('mec_custom_events');
+      const parsed = cached ? JSON.parse(cached) : [];
+      return [...parsed, ...MEC_EVENTS];
+    } catch (e) {
+      return MEC_EVENTS;
+    }
+  });
+
+  const handleAddEvent = (newEvent) => {
+    setEventsList(prev => {
+      // Keep only custom events to avoid caching mock database repeatedly
+      const onlyCustom = [newEvent, ...prev.filter(e => !MEC_EVENTS.some(m => m.id === e.id))];
+      localStorage.setItem('mec_custom_events', JSON.stringify(onlyCustom));
+      return [newEvent, ...prev];
+    });
+  };
   const [activeEvent,  setActiveEvent]  = useState(null);
   const [category,     setCategory]     = useState('All');
   const [installPrompt,setInstallPrompt]= useState(null);
@@ -85,7 +105,7 @@ export default function App() {
     link.remove();
   };
 
-  const filtered = MEC_EVENTS.filter(evt => {
+  const filtered = eventsList.filter(evt => {
     const catMatch = category === 'All'
       || evt.category.toLowerCase() === category.toLowerCase()
       || evt.clubId === category;
@@ -133,7 +153,7 @@ export default function App() {
       {/* Ticker */}
       <div className="ticker-wrap">
         <div className="ticker-inner">
-          {[...MEC_EVENTS, ...MEC_EVENTS].map((evt, i) => (
+          {[...eventsList, ...eventsList].map((evt, i) => (
             <span key={i} className="ticker-item">
               <span className="ticker-dot">●</span>
               {evt.title} — {new Date(evt.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} — Registration Open
@@ -154,6 +174,7 @@ export default function App() {
               registered={registered}
               setActiveEvent={setActiveEvent}
               pageAnim={pageAnim}
+              eventsList={eventsList}
             />
           )}
 
@@ -191,6 +212,8 @@ export default function App() {
             <CoordinatorView
               setView={setView}
               pageAnim={pageAnim}
+              eventsList={eventsList}
+              onAddEvent={handleAddEvent}
             />
           )}
 
