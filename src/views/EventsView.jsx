@@ -87,9 +87,7 @@ export default function EventsView({
     setVenue('');
     setPrice('Free');
     setFlagship(false);
-    setDescription('');
-    
-    setSuccessMsg('🎉 Event successfully created! It is now live across the portal.');
+    setSuccessMsg('Event successfully created! It is now live across the portal.');
     setTimeout(() => setSuccessMsg(''), 5000);
     setFormOpen(false);
   };
@@ -164,7 +162,7 @@ export default function EventsView({
               textAlign: 'left'
             }}
           >
-            <span>⚡ Create New Campus Event</span>
+            <span>Create New Campus Event</span>
             <span style={{ fontSize: '18px' }}>{formOpen ? '−' : '+'}</span>
           </button>
 

@@ -260,9 +260,7 @@ export default function CoordinatorView({ setView, pageAnim, eventsList, onAddEv
     setVenue('');
     setPrice('Free');
     setFlagship(false);
-    setDescription('');
-    
-    setSuccessMsg('🎉 Event successfully created! It is now live across the portal.');
+    setSuccessMsg('Event successfully created! It is now live across the portal.');
     setTimeout(() => setSuccessMsg(''), 5000);
     setFormOpen(false);
   };
@@ -476,7 +474,7 @@ export default function CoordinatorView({ setView, pageAnim, eventsList, onAddEv
           width: 'fit-content',
           letterSpacing: '0.07em'
         }}>
-          {isClubManager ? '⚡ CLUB MANAGER DESK — Third Eye Cell' : '⚡ SUPER ADMIN DESK'}
+          {isClubManager ? 'CLUB MANAGER DESK — Third Eye Cell' : 'SUPER ADMIN DESK'}
         </span>
         <h1 style={{
           ...D,
@@ -687,7 +685,7 @@ export default function CoordinatorView({ setView, pageAnim, eventsList, onAddEv
             textAlign: 'left'
           }}
         >
-          <span>⚡ Create New Campus Event</span>
+          <span>Create New Campus Event</span>
           <span style={{ fontSize: '18px' }}>{formOpen ? '−' : '+'}</span>
         </button>
 
@@ -1105,7 +1103,7 @@ export default function CoordinatorView({ setView, pageAnim, eventsList, onAddEv
         {/* Tabular Student Registry */}
         {loading ? (
           <div style={{ padding: '40px 0', textAlign: 'center', ...D, fontWeight: 700 }}>
-            ⚡ Querying active database logs...
+            Querying active database logs...
           </div>
         ) : filteredRegs.length === 0 ? (
           <div style={{ 

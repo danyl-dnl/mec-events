@@ -153,7 +153,7 @@ export default function EventCard({ event, onRegister, isRegistered }) {
             Registration Progress
           </span>
           <span style={{ ...D, fontSize: '10px', fontWeight: 700, color: seatsLeft <= 5 ? '#EF4444' : 'var(--text)' }}>
-            {seatsLeft <= 5 ? `🔥 ONLY ${seatsLeft} SEATS LEFT` : `${currentCount} / ${maxCapacity} filled`}
+            {seatsLeft <= 5 ? `ONLY ${seatsLeft} SEATS LEFT` : `${currentCount} / ${maxCapacity} filled`}
           </span>
         </div>
         

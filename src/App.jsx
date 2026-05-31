@@ -139,7 +139,7 @@ export default function App() {
           letterSpacing: '0.05em',
           zIndex: 1001,
         }}>
-          ⚡ OFFLINE MODE: Displaying cached entry passes. QR Codes remain fully active.
+          OFFLINE MODE: Displaying cached entry passes. QR Codes remain fully active.
         </div>
       )}
 
