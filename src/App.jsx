@@ -188,6 +188,7 @@ export default function App() {
               registered={registered}
               setActiveEvent={setActiveEvent}
               pageAnim={pageAnim}
+              onAddEvent={handleAddEvent}
             />
           )}
 
