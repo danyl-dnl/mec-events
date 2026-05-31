@@ -29,10 +29,10 @@ export default function EventCard({ event, onRegister, isRegistered }) {
   const [hovered, setHovered] = useState(false);
 
   const capacityDelta = event.id === 'robowars-26' ? 3 : event.id === 'iot-bootcamp' ? 4 : event.id === 'devsprint-26' ? 5 : 12;
-  const maxCapacity = event.registrationCount + capacityDelta;
+  const maxCapacity = event.maxCapacity || (event.registrationCount + capacityDelta);
   const currentCount = event.registrationCount + (isRegistered ? 1 : 0);
-  const seatsLeft = maxCapacity - currentCount;
-  const fillPct = (currentCount / maxCapacity) * 100;
+  const seatsLeft = Math.max(0, maxCapacity - currentCount);
+  const fillPct = maxCapacity > 0 ? (currentCount / maxCapacity) * 100 : 0;
 
   return (
     <motion.article

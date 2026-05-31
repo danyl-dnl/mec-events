@@ -34,6 +34,7 @@ export default function EventsView({
   const [time, setTime] = useState('');
   const [venue, setVenue] = useState('');
   const [price, setPrice] = useState('Free');
+  const [maxCapacity, setMaxCapacity] = useState('60');
   const [flagship, setFlagship] = useState(false);
   const [glowColor, setGlowColor] = useState('#00F2FE');
   const [description, setDescription] = useState('');
@@ -63,7 +64,7 @@ export default function EventsView({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!title || !date || !time || !venue || !price || !description) {
+    if (!title || !date || !time || !venue || !price || !description || !maxCapacity) {
       alert('Please fill in all required fields.');
       return;
     }
@@ -84,6 +85,7 @@ export default function EventsView({
       status: 'active',
       flagship,
       registrationCount: 0,
+      maxCapacity: parseInt(maxCapacity, 10) || 60,
       price,
       glowColor,
     };
@@ -98,6 +100,7 @@ export default function EventsView({
     setTime('');
     setVenue('');
     setPrice('Free');
+    setMaxCapacity('60');
     setFlagship(false);
     setSuccessMsg('Event successfully created! It is now live across the portal.');
     setTimeout(() => setSuccessMsg(''), 5000);
@@ -290,7 +293,26 @@ export default function EventsView({
                     />
                   </div>
 
-                  {/* Field 5: Date */}
+                  {/* Field 5: Total Seats */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                    <label style={{ ...D, fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', color: 'var(--text)' }}>
+                      Total Seats *
+                    </label>
+                    <input
+                      type="number"
+                      required
+                      min="1"
+                      placeholder="e.g. 60"
+                      value={maxCapacity}
+                      onChange={e => setMaxCapacity(e.target.value)}
+                      style={{
+                        ...B, padding: '10px 12px', fontSize: '13px', background: 'var(--bg)',
+                        border: '2px solid var(--border)', borderRadius: '4px', color: 'var(--text)', outline: 'none'
+                      }}
+                    />
+                  </div>
+
+                  {/* Field 6: Date */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
                     <label style={{ ...D, fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', color: 'var(--text)' }}>
                       Event Date *
@@ -307,7 +329,7 @@ export default function EventsView({
                     />
                   </div>
 
-                  {/* Field 6: Time */}
+                  {/* Field 7: Time */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
                     <label style={{ ...D, fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', color: 'var(--text)' }}>
                       Start Time *
@@ -324,8 +346,8 @@ export default function EventsView({
                     />
                   </div>
 
-                  {/* Field 7: Venue */}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                  {/* Field 8: Venue */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', gridColumn: '1 / -1' }}>
                     <label style={{ ...D, fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', color: 'var(--text)' }}>
                       Venue *
                     </label>
