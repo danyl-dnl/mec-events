@@ -194,8 +194,9 @@ export default function RegisterModal({ isOpen, onClose, event, onSuccess, onOpe
               {/* Category tag + Flagship badge */}
               <div style={{
                 display: 'flex', alignItems: 'center',
-                justifyContent: 'space-between', gap: '8px',
+                gap: '8px',
                 marginBottom: '20px',
+                paddingRight: '40px',
               }}>
                 <span style={{
                   ...D,
