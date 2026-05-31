@@ -244,21 +244,23 @@ export default function Header({ currentView, setCurrentView, onOpenAuth, onOpen
 
                     {/* Actions */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                      <button
-                        onClick={() => { setCurrentView('coordinator'); setDropdownOpen(false); }}
-                        style={{
-                          display: 'flex', alignItems: 'center', gap: '8px',
-                          padding: '8px', background: 'none', border: 'none',
-                          borderRadius: '4px', cursor: 'pointer',
-                          ...D, fontSize: '12px', fontWeight: 600, color: '#111',
-                          textAlign: 'left', width: '100%',
-                        }}
-                        onMouseEnter={e => e.currentTarget.style.background = '#F5F5F3'}
-                        onMouseLeave={e => e.currentTarget.style.background = 'none'}
-                      >
-                        <ShieldAlert size={14} style={{ color: '#C2410C' }} />
-                        Coordinator Desk
-                      </button>
+                      {(user?.email === 'danyldt07@gmail.com' || user?.email === 'danylphotos@gmail.com') && (
+                        <button
+                          onClick={() => { setCurrentView('coordinator'); setDropdownOpen(false); }}
+                          style={{
+                            display: 'flex', alignItems: 'center', gap: '8px',
+                            padding: '8px', background: 'none', border: 'none',
+                            borderRadius: '4px', cursor: 'pointer',
+                            ...D, fontSize: '12px', fontWeight: 600, color: '#111',
+                            textAlign: 'left', width: '100%',
+                          }}
+                          onMouseEnter={e => e.currentTarget.style.background = '#F5F5F3'}
+                          onMouseLeave={e => e.currentTarget.style.background = 'none'}
+                        >
+                          <ShieldAlert size={14} style={{ color: '#C2410C' }} />
+                          Coordinator Desk
+                        </button>
+                      )}
                       <button
                         onClick={() => { onOpenProfile(); setDropdownOpen(false); }}
                         style={{
@@ -380,20 +382,22 @@ export default function Header({ currentView, setCurrentView, onOpenAuth, onOpen
 
               {user && (
                 <>
-                  <button
-                    onClick={() => { setCurrentView('coordinator'); setOpen(false); }}
-                    style={{
-                      display: 'flex', alignItems: 'center', gap: '10px',
-                      padding: '12px 16px',
-                      ...D, fontSize: '14px', fontWeight: 600,
-                      color: '#CCCCCC', background: 'transparent',
-                      border: 'none', borderRadius: '6px', cursor: 'pointer',
-                      textAlign: 'left', width: '100%',
-                    }}
-                  >
-                    <ShieldAlert size={15} style={{ color: '#F5C518' }} />
-                    Coordinator Desk
-                  </button>
+                  {(user.email === 'danyldt07@gmail.com' || user.email === 'danylphotos@gmail.com') && (
+                    <button
+                      onClick={() => { setCurrentView('coordinator'); setOpen(false); }}
+                      style={{
+                        display: 'flex', alignItems: 'center', gap: '10px',
+                        padding: '12px 16px',
+                        ...D, fontSize: '14px', fontWeight: 600,
+                        color: '#CCCCCC', background: 'transparent',
+                        border: 'none', borderRadius: '6px', cursor: 'pointer',
+                        textAlign: 'left', width: '100%',
+                      }}
+                    >
+                      <ShieldAlert size={15} style={{ color: '#F5C518' }} />
+                      Coordinator Desk
+                    </button>
+                  )}
                   <button
                     onClick={() => { onOpenProfile(); setOpen(false); }}
                   style={{

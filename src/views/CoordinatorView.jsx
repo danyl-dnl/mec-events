@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useAuth } from '../context/AuthContext';
 import { motion } from 'framer-motion';
 import { 
   Users, 
@@ -188,6 +189,13 @@ const MOCK_COORDINATOR_REGS = [
 ];
 
 export default function CoordinatorView({ setView, pageAnim }) {
+  const { user } = useAuth();
+
+  const isSuperAdmin = !user || user.email === 'danyldt07@gmail.com';
+  const isClubManager = user?.email === 'danylphotos@gmail.com';
+  const managedClubId = isClubManager ? 'thirdeye' : null;
+  const managedClubName = isClubManager ? 'Third Eye' : null;
+
   const [registrations, setRegistrations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
@@ -255,19 +263,28 @@ export default function CoordinatorView({ setView, pageAnim }) {
     return isNaN(num) ? 0 : num;
   };
 
+  // Resolve club specific items
+  const clubEventIds = MEC_EVENTS.filter(e => e.clubId === managedClubId).map(e => e.id);
+  const clubFilteredRegistrations = isClubManager
+    ? registrations.filter(r => r.eventId === 'lens-walk-26' || clubEventIds.includes(r.eventId))
+    : registrations;
+
   // Unique event titles and branches for dropdown filters
-  const uniqueEvents = ['All', ...new Set(registrations.map(r => r.eventTitle))];
-  const uniqueBranches = ['All', ...new Set(registrations.map(r => r.branch).filter(Boolean))];
+  const uniqueEvents = isClubManager
+    ? ['Framed \'26 - Photo Walk']
+    : ['All', ...new Set(clubFilteredRegistrations.map(r => r.eventTitle))];
+    
+  const uniqueBranches = ['All', ...new Set(clubFilteredRegistrations.map(r => r.branch).filter(Boolean))];
 
   // Filtering registrations logic
-  const filteredRegs = registrations.filter(r => {
+  const filteredRegs = clubFilteredRegistrations.filter(r => {
     const searchMatch = 
       (r.fullName || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
       (r.email || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
       (r.studentId || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
       (r.id || '').toLowerCase().includes(searchQuery.toLowerCase());
     
-    const eventMatch = selectedEvent === 'All' || r.eventTitle === selectedEvent;
+    const eventMatch = selectedEvent === 'All' || selectedEvent === 'Framed \'26 - Photo Walk' || r.eventTitle === selectedEvent;
     const branchMatch = selectedBranch === 'All' || r.branch === selectedBranch;
 
     return searchMatch && eventMatch && branchMatch;
@@ -366,7 +383,7 @@ export default function CoordinatorView({ setView, pageAnim }) {
           fontSize: '10px',
           fontWeight: 700,
           color: '#111',
-          background: '#FEF08A',
+          background: isClubManager ? '#BAE6FD' : '#FEF08A',
           border: '1.5px solid var(--border)',
           borderRadius: '3px',
           padding: '3px 8px',
@@ -374,7 +391,7 @@ export default function CoordinatorView({ setView, pageAnim }) {
           width: 'fit-content',
           letterSpacing: '0.07em'
         }}>
-          ⚡ ADMIN DESK
+          {isClubManager ? '⚡ CLUB MANAGER DESK — Third Eye Cell' : '⚡ SUPER ADMIN DESK'}
         </span>
         <h1 style={{
           ...D,
@@ -385,7 +402,7 @@ export default function CoordinatorView({ setView, pageAnim }) {
           letterSpacing: '-0.02em',
           textTransform: 'uppercase',
         }}>
-          Coordinator View
+          {isClubManager ? 'Third Eye Desk' : 'Coordinator View'}
         </h1>
         <p style={{
           ...B,
@@ -394,7 +411,10 @@ export default function CoordinatorView({ setView, pageAnim }) {
           maxWidth: '680px',
           lineHeight: 1.6
         }}>
-          Monitor student registration statistics, manage student entries across departmental chapters, and export audited CSV spreadsheets.
+          {isClubManager
+            ? 'Monitor student registrations, view participant statistics, and export CSV spreadsheets strictly for the Third Eye photography club events.'
+            : 'Monitor student registration statistics, manage student entries across departmental chapters, and export audited CSV spreadsheets.'
+          }
         </p>
       </div>
 
