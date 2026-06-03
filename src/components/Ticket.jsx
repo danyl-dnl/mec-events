@@ -3,6 +3,7 @@ import { Download, Calendar, MapPin, CheckCircle2, FileText, Image as ImageIcon,
 import { motion, AnimatePresence } from 'framer-motion';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
+import { getKtuPointsForEvent } from '../lib/ktuPoints';
 
 const D = { fontFamily: "'Space Grotesk', sans-serif" };
 const B = { fontFamily: "'Plus Jakarta Sans', sans-serif" };
@@ -51,6 +52,32 @@ export default function Ticket({ ticket, onDownload }) {
   const [hov, setHov]   = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [exporting, setExporting] = useState(false);
+
+  // Compute KTU Details dynamically
+  const isFlagship = ticket.eventTitle?.toLowerCase().includes('excel') || 
+                     ticket.eventTitle?.toLowerCase().includes('technopreneur') ||
+                     ticket.eventTitle?.toLowerCase().includes('devsprint');
+                     
+  const miniEvent = {
+    id: ticket.eventId,
+    title: ticket.eventTitle,
+    clubId: ticket.clubName?.toLowerCase().includes('ieee') ? 'ieee' :
+            ticket.clubName?.toLowerCase().includes('foss') ? 'fossmec' :
+            ticket.clubName?.toLowerCase().includes('iedc') ? 'iedc' :
+            ticket.clubName?.toLowerCase().includes('illuminati') ? 'illuminati' :
+            ticket.clubName?.toLowerCase().includes('signals') ? 'signals' :
+            ticket.clubName?.toLowerCase().includes('cyborg') ? 'cyborg' :
+            ticket.clubName?.toLowerCase().includes('thirdeye') ? 'thirdeye' :
+            ticket.clubName?.toLowerCase().includes('macs') ? 'macs' : '',
+    category: ticket.eventTitle?.toLowerCase().includes('quiz') ? 'quizzing' :
+              ticket.eventTitle?.toLowerCase().includes('sprint') ? 'coding' :
+              ticket.eventTitle?.toLowerCase().includes('algo') ? 'coding' :
+              ticket.eventTitle?.toLowerCase().includes('iot') ? 'electronics' :
+              ticket.eventTitle?.toLowerCase().includes('robowars') ? 'robotics' :
+              ticket.eventTitle?.toLowerCase().includes('photo') ? 'arts' : 'tech',
+    flagship: isFlagship,
+  };
+  const ktuDetails = getKtuPointsForEvent(miniEvent);
 
   // Close dropdown on click outside
   useEffect(() => {
@@ -131,19 +158,32 @@ export default function Ticket({ ticket, onDownload }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
 
-      {/* Success note */}
-      <div style={{
-        display: 'inline-flex', alignItems: 'center', gap: '8px',
-        padding: '8px 14px',
-        background: '#F0FDF4',
-        border: '1.5px solid #86EFAC',
-        borderRadius: '6px',
-        alignSelf: 'flex-start',
-      }}>
-        <CheckCircle2 size={14} color="#22C55E" />
-        <span style={{ ...D, fontSize: '12px', fontWeight: 700, color: '#166534' }}>
-          Registration Confirmed
-        </span>
+      {/* Success note & KTU Points estimate */}
+      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+        <div style={{
+          display: 'inline-flex', alignItems: 'center', gap: '8px',
+          padding: '8px 14px',
+          background: '#F0FDF4',
+          border: '1.5px solid #86EFAC',
+          borderRadius: '6px',
+        }}>
+          <CheckCircle2 size={14} color="#22C55E" />
+          <span style={{ ...D, fontSize: '12px', fontWeight: 700, color: '#166534' }}>
+            Registration Confirmed
+          </span>
+        </div>
+
+        <div style={{
+          display: 'inline-flex', alignItems: 'center', gap: '6px',
+          padding: '8px 14px',
+          background: '#EFF6FF',
+          border: '1.5px solid #BFDBFE',
+          borderRadius: '6px',
+        }}>
+          <span style={{ ...D, fontSize: '11px', fontWeight: 700, color: '#1E40AF', textTransform: 'uppercase' }}>
+            {ktuDetails.group === 'GROUP_I' ? 'KTU GROUP I' : ktuDetails.group === 'GROUP_II' ? 'KTU GROUP II' : 'KTU GROUP III'} : +{ktuDetails.points} PTS
+          </span>
+        </div>
       </div>
 
       {/* Ticket card */}
@@ -246,17 +286,30 @@ export default function Ticket({ ticket, onDownload }) {
                 REG: {new Date(ticket.registeredAt).toLocaleDateString()}
               </span>
             </div>
-            <span style={{
-              ...D,
-              fontSize: '9px', fontWeight: 700,
-              letterSpacing: '0.08em', textTransform: 'uppercase',
-              padding: '3px 10px',
-              background: 'var(--text)', color: 'var(--accent-pop)',
-              borderRadius: '3px',
-              border: '1.5px solid var(--border)',
-            }}>
-              VERIFIED
-            </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <span style={{
+                ...M,
+                fontSize: '9px', fontWeight: 600,
+                letterSpacing: '0.04em', textTransform: 'uppercase',
+                padding: '3px 8px',
+                background: 'var(--bg-card)', color: 'var(--text)',
+                borderRadius: '3px',
+                border: '1.5px solid var(--border)',
+              }}>
+                {ktuDetails.group === 'GROUP_I' ? 'G1' : ktuDetails.group === 'GROUP_II' ? 'G2' : 'G3'}: {ktuDetails.points} PTS
+              </span>
+              <span style={{
+                ...D,
+                fontSize: '9px', fontWeight: 700,
+                letterSpacing: '0.08em', textTransform: 'uppercase',
+                padding: '3px 10px',
+                background: 'var(--text)', color: 'var(--accent-pop)',
+                borderRadius: '3px',
+                border: '1.5px solid var(--border)',
+              }}>
+                VERIFIED
+              </span>
+            </div>
           </div>
         </motion.div>
       </div>
